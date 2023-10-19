@@ -1,6 +1,7 @@
 USE master
 DROP DATABASE IF EXISTS GestorBibliotecaG5;
 CREATE DATABASE GestorBibliotecaG5;
+GO
 USE GestorBibliotecaG5;
 
 CREATE TABLE Biblioteca (
@@ -26,9 +27,7 @@ CREATE TABLE Libro (
     sinopsis NVARCHAR(100),
     caratula NVARCHAR(100) NOT NULL,
     cantidad_unidades_disponibles INT NOT NULL,
-    es_prestable BIT NOT NULL,
-    biblioteca_nombre NVARCHAR(100) NOT NULL,
-    FOREIGN KEY (biblioteca_nombre) REFERENCES Biblioteca(nombre)
+    es_prestable BIT NOT NULL
 );
 
 CREATE TABLE Libro_Autor (
