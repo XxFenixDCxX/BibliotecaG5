@@ -10,17 +10,22 @@ using System.Windows.Forms;
 
 namespace CapaPresentacion
 {
-    public partial class Principal : Form
+    public partial class Anadir : Form
     {
-        public Principal()
+        public Anadir()
         {
             InitializeComponent();
         }
 
+        private void anadirLibro_Load(object sender, EventArgs e)
+        {
+            
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            Anadir form = new Anadir();
-            form.ShowDialog(); 
+            ofdAbrirFichero.ShowDialog();
+            MessageBox.Show(ofdAbrirFichero.);
         }
     }
 }
