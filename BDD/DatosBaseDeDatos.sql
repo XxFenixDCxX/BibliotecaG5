@@ -1,3 +1,8 @@
+-- Errores de ejecución. Ver por ejemplo
+-- (3 filas afectadas)
+--Mens. 2628, Nivel 16, Estado 1, Línea 17
+--Los datos binarios o de la cadena se truncan en la columna "isbn" de la tabla "GestorBibliotecaG5.dbo.Libro". Valor truncado: "1234567890123".
+
 USE GestorBibliotecaG5;
 DELETE FROM Biblioteca;
 DELETE FROM Categoria;
