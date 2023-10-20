@@ -17,6 +17,11 @@ public class Libro : IEquatable<Libro>
     {
     }
 
+    public Libro(string isbn)
+    {
+        Isbn = isbn;
+    }
+
     public Libro(string isbn, string titulo, string editorial, string sinopsis, string caratula, int cantidadUnidadesDisponibles, bool esPrestable, string bibliotecaNombre)
     {
         Isbn = isbn;
@@ -37,6 +42,6 @@ public class Libro : IEquatable<Libro>
     public bool Equals(Libro other)
     {
         return !(other is null) &&
-               Isbn == other.Isbn;
+               string.Equals(Isbn, other.Isbn, StringComparison.OrdinalIgnoreCase);
     }
 }
