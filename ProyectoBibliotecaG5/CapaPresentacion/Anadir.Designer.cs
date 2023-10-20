@@ -39,19 +39,21 @@
             this.lblCaratula = new System.Windows.Forms.Label();
             this.lbl = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.ofdAbrirFichero = new System.Windows.Forms.OpenFileDialog();
             this.button1 = new System.Windows.Forms.Button();
             this.lblUnidadesDisponibles = new System.Windows.Forms.Label();
             this.txtUnidadesDisponiles = new System.Windows.Forms.TextBox();
             this.lblPrestable = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.btnAgregar = new System.Windows.Forms.Button();
+            this.rbSi = new System.Windows.Forms.RadioButton();
+            this.rbNo = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // txtIsbn
             // 
             this.txtIsbn.Location = new System.Drawing.Point(260, 75);
             this.txtIsbn.Name = "txtIsbn";
-            this.txtIsbn.Size = new System.Drawing.Size(100, 20);
+            this.txtIsbn.Size = new System.Drawing.Size(114, 20);
             this.txtIsbn.TabIndex = 0;
             // 
             // lblIsbn
@@ -92,7 +94,7 @@
             // 
             this.txtEditorial.Location = new System.Drawing.Point(260, 138);
             this.txtEditorial.Name = "txtEditorial";
-            this.txtEditorial.Size = new System.Drawing.Size(100, 20);
+            this.txtEditorial.Size = new System.Drawing.Size(114, 20);
             this.txtEditorial.TabIndex = 4;
             // 
             // lblSinopsis
@@ -136,17 +138,13 @@
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 10;
             // 
-            // ofdAbrirFichero
-            // 
-            this.ofdAbrirFichero.FileName = "AbrirFichero";
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(260, 193);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(114, 23);
             this.button1.TabIndex = 12;
-            this.button1.Text = "button1";
+            this.button1.Text = "Seleccionar Imagen";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -163,7 +161,7 @@
             // 
             this.txtUnidadesDisponiles.Location = new System.Drawing.Point(260, 243);
             this.txtUnidadesDisponiles.Name = "txtUnidadesDisponiles";
-            this.txtUnidadesDisponiles.Size = new System.Drawing.Size(100, 20);
+            this.txtUnidadesDisponiles.Size = new System.Drawing.Size(114, 20);
             this.txtUnidadesDisponiles.TabIndex = 13;
             // 
             // lblPrestable
@@ -175,20 +173,50 @@
             this.lblPrestable.TabIndex = 16;
             this.lblPrestable.Text = "Prestable";
             // 
-            // textBox3
+            // openFileDialog1
             // 
-            this.textBox3.Location = new System.Drawing.Point(409, 243);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 15;
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(339, 308);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.TabIndex = 17;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            // 
+            // rbSi
+            // 
+            this.rbSi.AutoSize = true;
+            this.rbSi.Location = new System.Drawing.Point(409, 245);
+            this.rbSi.Name = "rbSi";
+            this.rbSi.Size = new System.Drawing.Size(34, 17);
+            this.rbSi.TabIndex = 18;
+            this.rbSi.TabStop = true;
+            this.rbSi.Text = "Si";
+            this.rbSi.UseVisualStyleBackColor = true;
+            // 
+            // rbNo
+            // 
+            this.rbNo.AutoSize = true;
+            this.rbNo.Location = new System.Drawing.Point(449, 246);
+            this.rbNo.Name = "rbNo";
+            this.rbNo.Size = new System.Drawing.Size(39, 17);
+            this.rbNo.TabIndex = 19;
+            this.rbNo.TabStop = true;
+            this.rbNo.Text = "No";
+            this.rbNo.UseVisualStyleBackColor = true;
             // 
             // Anadir
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.rbNo);
+            this.Controls.Add(this.rbSi);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.lblPrestable);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.lblUnidadesDisponibles);
             this.Controls.Add(this.txtUnidadesDisponiles);
             this.Controls.Add(this.button1);
@@ -224,11 +252,13 @@
         private System.Windows.Forms.Label lblCaratula;
         private System.Windows.Forms.Label lbl;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.OpenFileDialog ofdAbrirFichero;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblUnidadesDisponibles;
         private System.Windows.Forms.TextBox txtUnidadesDisponiles;
         private System.Windows.Forms.Label lblPrestable;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.RadioButton rbSi;
+        private System.Windows.Forms.RadioButton rbNo;
     }
 }
