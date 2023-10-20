@@ -24,8 +24,8 @@ namespace CapaPresentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ofdAbrirFichero.ShowDialog();
-            MessageBox.Show(ofdAbrirFichero.);
+            openFileDialog1.ShowDialog();
+            MessageBox.Show(openFileDialog1.FileName);
         }
     }
 }

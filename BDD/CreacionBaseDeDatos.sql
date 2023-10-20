@@ -47,7 +47,7 @@ CREATE TABLE Libro_Categoria (
 );
 
 CREATE TABLE Lector (
-    numero_carnet INT PRIMARY KEY,
+    numero_carnet NVARCHAR(100) PRIMARY KEY,
     nombre NVARCHAR(100) NOT NULL,
     contrasena NVARCHAR(100) NOT NULL,
     telefono NVARCHAR(15),
