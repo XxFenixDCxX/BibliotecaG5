@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,14 +9,21 @@ namespace CapaEntidades
 {
     public class Lector : IEquatable<Lector>
     {
-        public int NumeroCarnet { get; set; }
+        //El numero de carnet es de tipo string 
+        public string NumeroCarnet { get; set; }
         public string Nombre { get; set; }
         public string Contrasena { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
 
         public Lector() { }
-        public Lector(int numeroCarnet , string nombre , string contrasena , string Telefono , string email)
+
+        public Lector(string numeroCarnet)
+        {
+            NumeroCarnet = numeroCarnet;
+        }
+
+        public Lector(string numeroCarnet , string nombre , string contrasena , string Telefono , string email)
         {
             this.NumeroCarnet = numeroCarnet;
             this.Nombre = nombre;
@@ -37,7 +45,7 @@ namespace CapaEntidades
         public bool Equals(Lector other)
         {
             return !(other is null) &&
-                   NumeroCarnet == other.NumeroCarnet;
+                   string.Equals(NumeroCarnet, other.NumeroCarnet, StringComparison.OrdinalIgnoreCase);
         }
 
         public override int GetHashCode()
