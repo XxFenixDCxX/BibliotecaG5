@@ -1,5 +1,5 @@
 ﻿
-public class libro
+public class Libro
 {
 	
         public string Isbn { get; set; }

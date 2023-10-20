@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CapaEntidades
 {
-    public class lector : IEquatable<lector>
+    public class Lector : IEquatable<Lector>
     {
         public int NumeroCarnet { get; set; }
         public string Nombre { get; set; }
@@ -14,8 +14,8 @@ namespace CapaEntidades
         public string Telefono { get; set; }
         public string Email { get; set; }
 
-        public lector() { }
-        public lector(int numeroCarnet , string nombre , string contrasena , string Telefono , string email)
+        public Lector() { }
+        public Lector(int numeroCarnet , string nombre , string contrasena , string Telefono , string email)
         {
             this.NumeroCarnet = numeroCarnet;
             this.Nombre = nombre;
@@ -31,10 +31,10 @@ namespace CapaEntidades
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as lector);
+            return Equals(obj as Lector);
         }
 
-        public bool Equals(lector other)
+        public bool Equals(Lector other)
         {
             return !(other is null) &&
                    NumeroCarnet == other.NumeroCarnet;
