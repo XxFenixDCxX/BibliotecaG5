@@ -27,7 +27,6 @@ namespace CapaDatos
 
                 try
                 {
-
                     conexion.Open();
                     string sqlLectores = "SELECT numero_carnet, nombre, contrasena, telefono, email FROM Lector";
                     string sqlAutores = "SELECT id, nombre FROM Autor";
@@ -38,13 +37,23 @@ namespace CapaDatos
                     SqlCommand comandoAutores = new SqlCommand(sqlAutores, conexion);
                     SqlCommand comandoLibros = new SqlCommand(sqlLibros, conexion);
                     SqlCommand comandoCategorias = new SqlCommand(sqlCategorias, conexion);
-                    SqlCommand comando = new SqlCommand(sqlCategorias, conexion);
+                    SqlCommand comandoBiblioteca = new SqlCommand(sqlCategorias, conexion);
 
 
                     SqlDataReader readerLectores = comandoLectores.ExecuteReader();
                     SqlDataReader readerAutores = comandoAutores.ExecuteReader();
                     SqlDataReader readerLibros = comandoLibros.ExecuteReader();
                     SqlDataReader readerCategorias = comandoCategorias.ExecuteReader();
+                    SqlDataReader readerBiblioteca = comandoBiblioteca.ExecuteReader();
+
+                    while (readerBiblioteca.Read())
+                    {
+                        string nombre = readerBiblioteca.GetString(readerBiblioteca.GetOrdinal("nombre"));
+                        string lugar = readerBiblioteca.GetString(readerBiblioteca.GetOrdinal("lugar"));
+                        string imagen = readerBiblioteca.GetString(readerBiblioteca.GetOrdinal("imagen"));
+                        Biblioteca biblioteca = new Biblioteca(nombre, lugar , imagen);
+                        this.biblioteca = biblioteca;
+                    }
 
                     while (readerLectores.Read())
                     {
@@ -77,7 +86,7 @@ namespace CapaDatos
                         bool es_prestable = readerLibros.GetBoolean(readerLibros.GetOrdinal("es_prestable"));
 
 
-                        Libro libro = new Libro(isbn,titulo,editorial, sinopsis,caratula,cantidad_unidades_disponibles,es_prestable,"NOmbre bib");
+                        Libro libro = new Libro(isbn,titulo,editorial, sinopsis,caratula,cantidad_unidades_disponibles,es_prestable,this.biblioteca.Nombre);
                         libros.Add(libro);
                     }
                     while (readerCategorias.Read())
@@ -85,6 +94,7 @@ namespace CapaDatos
                         Categoria categoria = new Categoria(readerAutores.GetInt32(readerCategorias.GetOrdinal("id")), readerCategorias.GetString(1));
                         categorias.Add(categoria);
                     }
+
                 }
                 catch (Exception ex)
                 {
