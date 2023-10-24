@@ -19,13 +19,18 @@ namespace CapaPresentacion
 
         private void anadirLibro_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
             MessageBox.Show(openFileDialog1.FileName);
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

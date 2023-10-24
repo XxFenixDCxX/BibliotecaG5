@@ -15,7 +15,7 @@ namespace CapaEntidades
         public string Contrasena { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
-
+        public bool conLibroPrestado { get; set; }
         public Lector() { }
 
         public Lector(string numeroCarnet)
@@ -23,13 +23,14 @@ namespace CapaEntidades
             NumeroCarnet = numeroCarnet;
         }
 
-        public Lector(string numeroCarnet , string nombre , string contrasena , string Telefono , string email)
+        public Lector(string numeroCarnet , string nombre , string contrasena , string Telefono , string email,bool conLibroPrestado)
         {
             this.NumeroCarnet = numeroCarnet;
             this.Nombre = nombre;
             this.Contrasena = contrasena;
             this.Telefono = Telefono;
             this.Email = email;
+            this.conLibroPrestado = conLibroPrestado;
         }
 
         public override string ToString()
