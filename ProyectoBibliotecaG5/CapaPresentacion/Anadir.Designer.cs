@@ -49,6 +49,8 @@
             this.chckPrestable = new System.Windows.Forms.CheckBox();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnDeseleccionar = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblBuscar = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numUnidadesDisponiles)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +59,7 @@
             this.txtIsbn.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtIsbn.Font = new System.Drawing.Font("Gotham", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIsbn.Location = new System.Drawing.Point(141, 115);
-            this.txtIsbn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtIsbn.Margin = new System.Windows.Forms.Padding(4);
             this.txtIsbn.Name = "txtIsbn";
             this.txtIsbn.Size = new System.Drawing.Size(151, 37);
             this.txtIsbn.TabIndex = 0;
@@ -89,7 +91,7 @@
             this.txtTitulo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTitulo.Font = new System.Drawing.Font("Gotham", 19.8F, System.Drawing.FontStyle.Bold);
             this.txtTitulo.Location = new System.Drawing.Point(383, 115);
-            this.txtTitulo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTitulo.Margin = new System.Windows.Forms.Padding(4);
             this.txtTitulo.Name = "txtTitulo";
             this.txtTitulo.Size = new System.Drawing.Size(197, 37);
             this.txtTitulo.TabIndex = 2;
@@ -110,7 +112,7 @@
             this.txtEditorial.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtEditorial.Font = new System.Drawing.Font("Gotham", 19.8F, System.Drawing.FontStyle.Bold);
             this.txtEditorial.Location = new System.Drawing.Point(141, 212);
-            this.txtEditorial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtEditorial.Margin = new System.Windows.Forms.Padding(4);
             this.txtEditorial.Name = "txtEditorial";
             this.txtEditorial.Size = new System.Drawing.Size(179, 37);
             this.txtEditorial.TabIndex = 4;
@@ -131,7 +133,7 @@
             this.txtSinopsis.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSinopsis.Font = new System.Drawing.Font("Gotham", 19.8F, System.Drawing.FontStyle.Bold);
             this.txtSinopsis.Location = new System.Drawing.Point(383, 212);
-            this.txtSinopsis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSinopsis.Margin = new System.Windows.Forms.Padding(4);
             this.txtSinopsis.Name = "txtSinopsis";
             this.txtSinopsis.Size = new System.Drawing.Size(177, 37);
             this.txtSinopsis.TabIndex = 6;
@@ -151,7 +153,7 @@
             // 
             this.button1.Font = new System.Drawing.Font("Gotham", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(140, 329);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(164, 28);
             this.button1.TabIndex = 12;
@@ -192,7 +194,7 @@
             this.btnAgregar.FlatAppearance.BorderSize = 0;
             this.btnAgregar.Font = new System.Drawing.Font("Gotham", 19.8F, System.Drawing.FontStyle.Bold);
             this.btnAgregar.Location = new System.Drawing.Point(152, 487);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(213, 54);
             this.btnAgregar.TabIndex = 17;
@@ -291,11 +293,34 @@
             this.btnDeseleccionar.Text = "Deseleccionar";
             this.btnDeseleccionar.UseVisualStyleBackColor = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Gotham", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(748, 85);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(197, 26);
+            this.textBox1.TabIndex = 27;
+            // 
+            // lblBuscar
+            // 
+            this.lblBuscar.AutoSize = true;
+            this.lblBuscar.Font = new System.Drawing.Font("Gotham", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBuscar.Location = new System.Drawing.Point(660, 86);
+            this.lblBuscar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblBuscar.Name = "lblBuscar";
+            this.lblBuscar.Size = new System.Drawing.Size(89, 25);
+            this.lblBuscar.TabIndex = 28;
+            this.lblBuscar.Text = "Buscar";
+            // 
             // Anadir
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(982, 554);
+            this.Controls.Add(this.lblBuscar);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnDeseleccionar);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.chckPrestable);
@@ -316,7 +341,7 @@
             this.Controls.Add(this.txtTitulo);
             this.Controls.Add(this.lblIsbn);
             this.Controls.Add(this.txtIsbn);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Anadir";
             this.Text = "AñadirLibro";
             this.Load += new System.EventHandler(this.anadirLibro_Load);
@@ -349,5 +374,7 @@
         private System.Windows.Forms.CheckBox chckPrestable;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnDeseleccionar;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblBuscar;
     }
 }
