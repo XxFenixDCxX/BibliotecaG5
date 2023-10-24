@@ -46,11 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CapaEntidades\CapaEntidades.csproj">
-<<<<<<< HEAD
-      <Project>{e0661f90-2726-48c0-a80a-51919cb64840}</Project>
-=======
       <Project>{E0661F90-2726-48C0-A80A-51919CB64840}</Project>
->>>>>>> 000997e041ea26b01a17fbfc9fd611d55ab63645
       <Name>CapaEntidades</Name>
     </ProjectReference>
   </ItemGroup>
