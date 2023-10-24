@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaEntidades", "CapaEntida
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaDatos", "CapaDatos\CapaDatos.csproj", "{23E44E51-EE6F-4DDF-B764-AF81AF879B85}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ComentariosMaria", "ComentariosMaria", "{F8C6AA6D-6D7F-407C-ADD7-AED50C8DF061}"
+	ProjectSection(SolutionItems) = preProject
+		..\ComentariosMaria\ComentariosMaria.docx = ..\ComentariosMaria\ComentariosMaria.docx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
