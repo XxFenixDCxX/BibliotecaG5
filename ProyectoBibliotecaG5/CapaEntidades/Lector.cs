@@ -23,14 +23,14 @@ namespace CapaEntidades
             NumeroCarnet = numeroCarnet;
         }
 
-        public Lector(string numeroCarnet , string nombre , string contrasena , string Telefono , string email,bool conLibroPrestado)
+        public Lector(string numeroCarnet , string nombre , string contrasena , string Telefono , string email)
         {
             this.NumeroCarnet = numeroCarnet;
             this.Nombre = nombre;
             this.Contrasena = contrasena;
             this.Telefono = Telefono;
             this.Email = email;
-            this.conLibroPrestado = conLibroPrestado;
+
         }
 
         public override string ToString()

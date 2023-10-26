@@ -19,11 +19,16 @@ namespace CapaPresentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Anadir form = new Anadir();
+            FrmGestionarLibro form = new FrmGestionarLibro();
             form.ShowDialog(); 
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
         {
 
         }

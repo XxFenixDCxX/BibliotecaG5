@@ -34,38 +34,143 @@ namespace CapaDatos
         {
             return this.listarAutoresPorComienzo("");
         }
-        public List<Libro> listarLibrosPorComienzo(String comienzo)
+
+
+
+
+
+
+        public List<Libro> listarLibrosPorComienzo(String comienzo,out string error)
         {
-            List<Libro> listActualizada = new List<Libro>();
-            foreach (Libro libro in libros)
+
+
+            error = "";
+            List<Lector> listaLectores = new List<Lector>();
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
             {
-                if (libro.Titulo.ToLower().StartsWith(comienzo.ToLower()))
+                try
                 {
-                    listActualizada.Add(libro);
+                    conexion.Open();
+                    string sqlLectores = "SELECT * FROM Libro WHERE titulo LIKE @comienzo + '%';";
+                    SqlCommand comandoLectores = new SqlCommand(sqlLectores, conexion);
+                    comandoLectores.Parameters.AddWithValue("@comienzo", comienzo);
+                    SqlDataReader readerLectores = comandoLectores.ExecuteReader();
+
+                    while (readerLibros.Read())
+                    {
+
+                        string isbn = readerLibros.GetString(readerLibros.GetOrdinal("isbn"));
+                        string titulo = readerLibros.GetString(readerLibros.GetOrdinal("titulo"));
+                        string editorial = readerLibros.GetString(readerLibros.GetOrdinal("editorial"));
+                        string sinopsis = readerLibros.GetString(readerLibros.GetOrdinal("sinopsis"));
+                        string caratula = readerLibros.GetString(readerLibros.GetOrdinal("caratula"));
+                        int cantidad_unidades_disponibles = readerLibros.GetInt32(readerLibros.GetOrdinal("cantidad_unidades_disponibles"));
+                        bool es_prestable = readerLibros.GetBoolean(readerLibros.GetOrdinal("es_prestable"));
+
+
+                        Libro libro = new Libro(isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable, this.biblioteca.Nombre);
+                        libros.Add(libro);
+                    }
+
                 }
+                catch (Exception ex)
+                {
+                    error += ex.ToString();
+                }
+                return listaLectores;
+
+
+                //List<Lector> listActualizada = new List<Lector>();
+                //foreach (Lector lector in lectores)
+                //{
+                //    if (lector.Nombre.ToLower().StartsWith(comienzo.ToLower()))
+                //    {
+                //        listActualizada.Add(lector);
+                //    }
+                //}
+                //return listActualizada;
+
             }
-            return listActualizada;
+            //List<Libro> listActualizada = new List<Libro>();
+            //foreach (Libro libro in libros)
+            //{
+            //    if (libro.Titulo.ToLower().StartsWith(comienzo.ToLower()))
+            //    {
+            //        listActualizada.Add(libro);
+            //    }
+            //}
+            //return listActualizada;
         }
+
+
+
+
+
+
         public List<Libro> listarLibros()
         {
             return this.listarLibrosPorComienzo("");
         }
-        public List<Lector> listarLectoresPorComienzo(String comienzo)
+
+
+
+
+
+
+        public List<Lector> listarLectoresPorComienzo(String comienzo, out string error)
         {
-            List<Lector> listActualizada = new List<Lector>();
-            foreach (Lector lector in lectores)
+            error = "";
+            List<Lector> listaLectores = new List<Lector>();
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
             {
-                if (lector.Nombre.ToLower().StartsWith(comienzo.ToLower()))
+                try
                 {
-                    listActualizada.Add(lector);
+                    conexion.Open();
+                    string sqlLectores = "SELECT * FROM Lector WHERE nombre LIKE @comienzo + '%';";
+                    SqlCommand comandoLectores = new SqlCommand(sqlLectores, conexion);
+                    comandoLectores.Parameters.AddWithValue("@comienzo", comienzo);
+                    SqlDataReader readerLectores = comandoLectores.ExecuteReader();
+                    while (readerLectores.Read())
+                    {
+                        string numero_carnet = readerLectores.GetString(readerLectores.GetOrdinal("numero_carnet"));
+                        string nombre = readerLectores.GetString(readerLectores.GetOrdinal("nombre"));
+                        string contrasena = readerLectores.GetString(readerLectores.GetOrdinal("contrasena"));
+                        string telefono = readerLectores.GetString(readerLectores.GetOrdinal("telefono"));
+                        string email = readerLectores.GetString(readerLectores.GetOrdinal("email"));
+                        Lector lector = new Lector(numero_carnet, nombre, contrasena, telefono, email);
+                        listaLectores.Add(lector);
+                    }
+
                 }
+                catch (Exception ex)
+                {
+                    error += ex.ToString();
+                }
+                return listaLectores;
+
+
+                //List<Lector> listActualizada = new List<Lector>();
+                //foreach (Lector lector in lectores)
+                //{
+                //    if (lector.Nombre.ToLower().StartsWith(comienzo.ToLower()))
+                //    {
+                //        listActualizada.Add(lector);
+                //    }
+                //}
+                //return listActualizada;
+
             }
-            return listActualizada;
         }
+
         public List<Lector> listarLectores()
         {
-            return this.listarLectoresPorComienzo("");
+            return this.listarLectoresPorComienzo("" ,out string error);
         }
+
+
+
+
+
         //meter usuarios
         public String MeterLector(Lector lector)
         {
@@ -197,7 +302,47 @@ namespace CapaDatos
             return errores;
         }   
 
-        private const string cadConexion = "Data Source = .; Initial Catalog = GestorBibliotecaG5; Integrated Security = SSPI; MultipleActiveResultSets=true";
+        public List<Lector> devolverListaDeMorosos(out String error)
+
+        {
+
+            error = "";
+            List<Lector> listaMorosos = new List<Lector>();
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+
+                try
+                {
+                    conexion.Open();
+                    
+                    string sqlMorosos = "SELECT * FROM Lector INNER JOIN Prestamo ON Lector.numero_carnet = Prestamo.lector_numero_carnet WHERE Prestamo.fecha_devolucion < GETDATE(); ";
+                    
+                    SqlCommand comandoMorosos = new SqlCommand(sqlMorosos, conexion);
+
+                    SqlDataReader readerMorosos = comandoMorosos.ExecuteReader();
+
+                    while (readerMorosos.Read())
+                    {
+                        string numero_carnet = readerMorosos.GetString(readerMorosos.GetOrdinal("numero_carnet"));
+                        string nombre = readerMorosos.GetString(readerMorosos.GetOrdinal("nombre"));
+                        string contrasena = readerMorosos.GetString(readerMorosos.GetOrdinal("contrasena"));
+                        string telefono = readerMorosos.GetString(readerMorosos.GetOrdinal("telefono"));
+                        string email = readerMorosos.GetString(readerMorosos.GetOrdinal("email"));
+
+                        Lector lector = new Lector(numero_carnet, nombre, contrasena, telefono, email);
+                        listaMorosos.Add(lector);
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    error += ex.ToString();
+                }
+                return listaMorosos;
+
+            }
+        }
+
         public Gestor(out String error)
 
         {
