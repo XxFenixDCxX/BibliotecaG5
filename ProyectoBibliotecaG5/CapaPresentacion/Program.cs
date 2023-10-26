@@ -1,19 +1,25 @@
-﻿using System;
+﻿using CapaDatos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CapaPresentacion
+
 {
-    internal static class Program
+
+    public class Program
     {
+        public static Gestor gestor;
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            gestor = new Gestor(out string error);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Principal());

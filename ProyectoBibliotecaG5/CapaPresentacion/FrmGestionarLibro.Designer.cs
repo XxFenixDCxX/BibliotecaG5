@@ -1,6 +1,6 @@
 ﻿namespace CapaPresentacion
 {
-    partial class Anadir
+    partial class FrmGestionarLibro
     {
         /// <summary>
         /// Required designer variable.
@@ -59,6 +59,7 @@
             this.txtIsbn.Name = "txtIsbn";
             this.txtIsbn.Size = new System.Drawing.Size(113, 30);
             this.txtIsbn.TabIndex = 0;
+            this.txtIsbn.TextChanged += new System.EventHandler(this.txtIsbn_TextChanged);
             // 
             // lblIsbn
             // 
@@ -201,7 +202,7 @@
             this.numUnidadesDisponiles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numUnidadesDisponiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
             this.numUnidadesDisponiles.Location = new System.Drawing.Point(323, 379);
-            this.numUnidadesDisponiles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numUnidadesDisponiles.Margin = new System.Windows.Forms.Padding(2);
             this.numUnidadesDisponiles.Maximum = new decimal(new int[] {
             500,
             0,
@@ -237,7 +238,7 @@
             this.chckPrestable.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.chckPrestable.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chckPrestable.Location = new System.Drawing.Point(453, 302);
-            this.chckPrestable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chckPrestable.Margin = new System.Windows.Forms.Padding(2);
             this.chckPrestable.Name = "chckPrestable";
             this.chckPrestable.Size = new System.Drawing.Size(15, 20);
             this.chckPrestable.TabIndex = 24;
@@ -262,7 +263,7 @@
             this.label2.TabIndex = 26;
             this.label2.Text = "¿Desea eliminar?";
             // 
-            // Anadir
+            // FrmGestionarLibro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -286,7 +287,7 @@
             this.Controls.Add(this.txtTitulo);
             this.Controls.Add(this.lblIsbn);
             this.Controls.Add(this.txtIsbn);
-            this.Name = "Anadir";
+            this.Name = "FrmGestionarLibro";
             this.Text = "AñadirLibro";
             this.Load += new System.EventHandler(this.anadirLibro_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numUnidadesDisponiles)).EndInit();

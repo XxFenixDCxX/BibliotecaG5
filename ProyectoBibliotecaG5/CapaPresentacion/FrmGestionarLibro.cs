@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CapaDatos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,9 +11,9 @@ using System.Windows.Forms;
 
 namespace CapaPresentacion
 {
-    public partial class Anadir : Form
+    public partial class FrmGestionarLibro : Form
     {
-        public Anadir()
+        public FrmGestionarLibro()
         {
             InitializeComponent();
         }
@@ -30,12 +31,8 @@ namespace CapaPresentacion
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-
+            
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

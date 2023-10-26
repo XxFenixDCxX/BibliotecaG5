@@ -172,7 +172,7 @@ namespace CapaDatos
 
 
         //meter usuarios
-        public String MeterLector(Lector lector)
+        public String AgregarLector(Lector lector)
         {
             //lector existe en la lista de lectores?
             foreach (Lector l in lectores)
@@ -188,25 +188,34 @@ namespace CapaDatos
         //meter libros
         public string AgregarLibro(Libro libro)
         {
-            //libro existe en la lista de libros?
-            
-            //1ªforma de hacerlo
-            foreach (Libro l in libros)
-            {
-                if (l.Equals(libro))
-                {
-                    return "El libro ya existe";
-                }
-            }
-            //2ªforma de hacerlo
-            //if (libros.Contains(libro))
-            //{
-            //    return "El libro ya existe";
-            //}
 
-            libros.Add(libro);
-            return "Libro agregado correctamente";
-        }
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+                    string sqlLectores = "SELECT * FROM Lector WHERE nombre LIKE @comienzo + '%';";
+                    SqlCommand comandoLectores = new SqlCommand(sqlLectores, conexion);
+                    comandoLectores.Parameters.AddWithValue("@comienzo", comienzo);
+                    SqlDataReader readerLectores = comandoLectores.ExecuteReader();
+                    while (readerLectores.Read())
+                    {
+                        string numero_carnet = readerLectores.GetString(readerLectores.GetOrdinal("numero_carnet"));
+                        string nombre = readerLectores.GetString(readerLectores.GetOrdinal("nombre"));
+                        string contrasena = readerLectores.GetString(readerLectores.GetOrdinal("contrasena"));
+                        string telefono = readerLectores.GetString(readerLectores.GetOrdinal("telefono"));
+                        string email = readerLectores.GetString(readerLectores.GetOrdinal("email"));
+                        Lector lector = new Lector(numero_carnet, nombre, contrasena, telefono, email);
+                        listaLectores.Add(lector);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    error += ex.ToString();
+                }
+                return listaLectores;
+            }
 
         //funcion actulizar la lista desde la base de datos
         public void ActualizarLista()
