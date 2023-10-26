@@ -58,7 +58,7 @@ CREATE TABLE Prestamo (
     id INT PRIMARY KEY,
     fecha_prestamo DATE NOT NULL,
     fecha_devolucion DATE,
-    lector_numero_carnet INT NOT NULL,
+    lector_numero_carnet NVARCHAR(100) NOT NULL,
     libro_isbn NCHAR(13) NOT NULL,
     FOREIGN KEY (lector_numero_carnet) REFERENCES Lector(numero_carnet),
     FOREIGN KEY (libro_isbn) REFERENCES Libro(isbn)
