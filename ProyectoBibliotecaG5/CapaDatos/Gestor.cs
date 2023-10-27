@@ -261,6 +261,63 @@ namespace CapaDatos
                 return listaLectores;
             }
         }
+        public bool AgregarLibro(Libro nuevoLibro, out string error)
+        {
+            error = "";
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+                    string sqlAgregarLibro = "INSERT INTO Libro (isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable) VALUES (@isbn, @titulo, @editorial, @sinopsis, @caratula, @cantidad_unidades_disponibles, @es_prestable);";
+
+                    SqlCommand comandoAgregarLibro = new SqlCommand(sqlAgregarLibro, conexion);
+
+                    comandoAgregarLibro.Parameters.AddWithValue("@isbn", nuevoLibro.Isbn);
+                    comandoAgregarLibro.Parameters.AddWithValue("@titulo", nuevoLibro.Titulo);
+                    comandoAgregarLibro.Parameters.AddWithValue("@editorial", nuevoLibro.Editorial);
+                    comandoAgregarLibro.Parameters.AddWithValue("@sinopsis", nuevoLibro.Sinopsis);
+                    comandoAgregarLibro.Parameters.AddWithValue("@caratula", nuevoLibro.Caratula);
+                    comandoAgregarLibro.Parameters.AddWithValue("@cantidad_unidades_disponibles", nuevoLibro.CantidadUnidadesDisponibles);
+                    comandoAgregarLibro.Parameters.AddWithValue("@es_prestable", nuevoLibro.EsPrestable);
+
+                    int filasAfectadas = comandoAgregarLibro.ExecuteNonQuery();
+
+                    return filasAfectadas > 0;
+                }
+                catch (Exception ex)
+                {
+                    error += ex.Message;
+                    return false;
+                }
+            }
+        }
+
+        public bool EliminarLibro(string isbn, out string error)
+        {
+            error = "";
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+                    string sqlEliminarLibro = "DELETE FROM Libro WHERE isbn = @isbn;";
+
+                    SqlCommand comandoEliminarLibro = new SqlCommand(sqlEliminarLibro, conexion);
+
+                    comandoEliminarLibro.Parameters.AddWithValue("@isbn", isbn);
+
+                    int filasAfectadas = comandoEliminarLibro.ExecuteNonQuery();
+
+                    return filasAfectadas > 0;
+                }
+                catch (Exception ex)
+                {
+                    error += ex.Message;
+                    return false;
+                }
+            }
+        }
 
     }
 }
