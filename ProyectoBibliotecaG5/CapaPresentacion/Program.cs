@@ -18,11 +18,11 @@ namespace CapaPresentacion
         [STAThread]
         static void Main()
         {
-            gestor = new Gestor(out string error);
+            gestor = new Gestor();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Principal());
+            Application.Run(new FrmPrincipal());
         }
     }
 }

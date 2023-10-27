@@ -50,25 +50,61 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlCabezera.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlCabezera.Designer.cs">
+      <DependentUpon>ControlCabezera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmBuscarLector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBuscarLector.Designer.cs">
+      <DependentUpon>FrmBuscarLector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGestionarLector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGestionarLector.Designer.cs">
+      <DependentUpon>FrmGestionarLector.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmGestionarLibro.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmGestionarLibro.Designer.cs">
       <DependentUpon>FrmGestionarLibro.cs</DependentUpon>
     </Compile>
-    <Compile Include="Principal.cs">
+    <Compile Include="FrmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Principal.Designer.cs">
-      <DependentUpon>Principal.cs</DependentUpon>
+    <Compile Include="FrmPrincipal.Designer.cs">
+      <DependentUpon>FrmPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmListaDeMorosos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmListaDeMorosos.Designer.cs">
+      <DependentUpon>FrmListaDeMorosos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ControlCabezera.resx">
+      <DependentUpon>ControlCabezera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmBuscarLector.resx">
+      <DependentUpon>FrmBuscarLector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGestionarLector.resx">
+      <DependentUpon>FrmGestionarLector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmGestionarLibro.resx">
       <DependentUpon>FrmGestionarLibro.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Principal.resx">
-      <DependentUpon>Principal.cs</DependentUpon>
+    <EmbeddedResource Include="FrmPrincipal.resx">
+      <DependentUpon>FrmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmListaDeMorosos.resx">
+      <DependentUpon>FrmListaDeMorosos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -96,6 +132,10 @@
     <ProjectReference Include="..\CapaDatos\CapaDatos.csproj">
       <Project>{23e44e51-ee6f-4ddf-b764-af81af879b85}</Project>
       <Name>CapaDatos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CapaEntidades\CapaEntidades.csproj">
+      <Project>{e0661f90-2726-48c0-a80a-51919cb64840}</Project>
+      <Name>CapaEntidades</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

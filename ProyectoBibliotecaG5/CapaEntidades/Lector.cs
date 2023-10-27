@@ -30,6 +30,14 @@ namespace CapaEntidades
             this.Contrasena = contrasena;
             this.Telefono = Telefono;
             this.Email = email;
+        }
+        public Lector(string numeroCarnet, string nombre, string contrasena, string email)
+        {
+            this.NumeroCarnet = numeroCarnet;
+            this.Nombre = nombre;
+            this.Contrasena = contrasena;
+            this.Telefono = "";
+            this.Email = email;
 
         }
 

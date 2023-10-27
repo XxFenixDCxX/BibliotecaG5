@@ -7,7 +7,7 @@ USE GestorBibliotecaG5;
 CREATE TABLE Biblioteca (
     nombre NVARCHAR(100) PRIMARY KEY,
     lugar NVARCHAR(100) NOT NULL,
-    imagen NVARCHAR(100) NOT NULL
+    imagen NVARCHAR(300) NOT NULL
 );
 
 CREATE TABLE Categoria (
