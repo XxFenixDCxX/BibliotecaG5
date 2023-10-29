@@ -17,5 +17,10 @@ namespace CapaEntidades
             this.Id = id;
             Descripcion = descripcion;
         }
+
+        public override string ToString()
+        {
+            return Descripcion;
+        }
     }
 }

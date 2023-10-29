@@ -132,7 +132,7 @@ namespace CapaDatos
                         commandExist.Parameters.AddWithValue("@numero_carnet", lector.NumeroCarnet);
                         if (commandExist.ExecuteScalar() != null)
                         {
-                            error = "El lector ya existe";
+                            error = "El reader ya existe";
                             return;
                         }
                     }
@@ -145,7 +145,7 @@ namespace CapaDatos
                         command.Parameters.AddWithValue("@email", lector.Email);
                         if (command.ExecuteNonQuery() == 0)
                         {
-                            error = "No se ha podido insertar al lector";
+                            error = "No se ha podido insertar al reader";
                         }
                     }
                 }
@@ -167,7 +167,7 @@ namespace CapaDatos
                         commandExist.Parameters.AddWithValue("@numero_carnet", carnet);
                         if (commandExist.ExecuteScalar() == null)
                         {
-                            error = "El lector no existe";
+                            error = "El reader no existe";
                             return;
                         }
                     }
@@ -176,7 +176,7 @@ namespace CapaDatos
                         command.Parameters.AddWithValue("@numero_carnet", carnet);
                         if (command.ExecuteNonQuery() == 0)
                         {
-                            error = "No se ha podido eliminar al lector";
+                            error = "No se ha podido eliminar al reader";
                         }
                     }
                 }
@@ -261,6 +261,147 @@ namespace CapaDatos
                 return listaLectores;
             }
         }
+
+        public Autor BuscarAutor(int id)
+        {
+            Autor autor = null;
+
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                conexion.Open();
+
+                string selectQuery = "SELECT * FROM Autor WHERE id = @id";
+                SqlCommand command = new SqlCommand(selectQuery, conexion);
+                command.Parameters.AddWithValue("@id", id);
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    autor = new Autor((int)reader["id"], (string)reader["nombre"]);
+                }
+            }
+
+            return autor;
+        }
+
+
+        //Devolver Autores y Categorias 
+        public List<Autor> ObtenerAutores(out string error)
+        {
+            return ObtenerAutoresFiltrados("",out error);
+        }
+
+        //&Lista de autores o categorias segun palabra
+
+        public List<Autor> ObtenerAutoresFiltrados(string palabra, out string error)
+        {
+            List<Autor> autores = new List<Autor>();
+            error = "";
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    SqlCommand comando;
+                    if (string.IsNullOrWhiteSpace(palabra))
+                    {
+                        comando = new SqlCommand("SELECT id, nombre FROM Autor", conexion);
+                    }
+                    else
+                    {
+                        comando = new SqlCommand("SELECT id, nombre FROM Autor WHERE nombre LIKE @palabra", conexion);
+                        comando.Parameters.AddWithValue("@palabra", "%" + palabra + "%");
+                    }
+
+                    SqlDataReader reader = comando.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Autor autor = new Autor(reader.GetInt32(0), reader.GetString(1));
+                        autores.Add(autor);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    error += ex.Message;
+                }
+
+            }
+
+            return autores;
+        }
+
+        public List<Categoria> ObtenerCategorias(out string error)
+        {
+            return ObtenerCategoriasFiltradas("", out error);
+        }
+
+        public List<Categoria> ObtenerCategoriasFiltradas(string palabra, out string error)
+        {
+            List<Categoria> categorias = new List<Categoria>();
+            error = "";
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    SqlCommand comando;
+                    if (string.IsNullOrWhiteSpace(palabra))
+                    {
+                        comando = new SqlCommand("SELECT id, descripcion FROM Categoria", conexion);
+                    }
+                    else
+                    {
+                        comando = new SqlCommand("SELECT id, descripcion FROM Categoria WHERE descripcion LIKE @palabra", conexion);
+                        comando.Parameters.AddWithValue("@palabra", "%" + palabra + "%");
+                    }
+
+                    SqlDataReader reader = comando.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Categoria categoria = new Categoria(reader.GetInt32(0), reader.GetString(1));
+                        categorias.Add(categoria);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    error += ex.Message;
+                }
+
+            }
+
+            return categorias;
+        }
+
+
+
+        //public Categoria BuscarCategoria(int id)
+        //{
+        //    Categoria categoria = null;
+
+        //    using (SqlConnection conexion = new SqlConnection(cadConexion))
+        //    {
+        //        conexion.Open();
+
+        //        string selectQuery = "SELECT * FROM Categoria WHERE id = @id";
+        //        SqlCommand command = new SqlCommand(selectQuery, conexion);
+        //        command.Parameters.AddWithValue("@id", id);
+        //        SqlDataReader reader = command.ExecuteReader();
+
+        //        if (reader.Read())
+        //        {
+        //            categoria = new Categoria((int)reader["id"], (string)reader["descripcion"]);
+        //        }
+        //    }
+
+        //    return categoria;
+        //}
+
+
         public bool AgregarLibro(Libro nuevoLibro, out string error)
         {
             error = "";
@@ -283,6 +424,28 @@ namespace CapaDatos
 
                     int filasAfectadas = comandoAgregarLibro.ExecuteNonQuery();
 
+                    if (filasAfectadas > 0)
+                    {
+                        foreach (Autor autor in nuevoLibro.Autores)
+                        {
+                            SqlCommand comandoAgregarAutor = new SqlCommand("INSERT INTO Libro_Autor (libro_isbn, autor_id) VALUES (@isbn, @autor_id)", conexion);
+                            comandoAgregarAutor.Parameters.AddWithValue("@isbn", nuevoLibro.Isbn);
+                            comandoAgregarAutor.Parameters.AddWithValue("@autor_id", autor.Id); 
+
+                            comandoAgregarAutor.ExecuteNonQuery();
+                        }
+
+                        foreach (Categoria categoria in nuevoLibro.Categorias)
+                        {
+                            SqlCommand comandoAgregarCategoria = new SqlCommand("INSERT INTO Libro_Categoria (libro_isbn, categoria_id) VALUES (@isbn, @categoria_id)", conexion);
+                            comandoAgregarCategoria.Parameters.AddWithValue("@isbn", nuevoLibro.Isbn);
+                            comandoAgregarCategoria.Parameters.AddWithValue("@categoria_id", categoria.Id); 
+
+                            comandoAgregarCategoria.ExecuteNonQuery();
+                        }
+
+                    }
+
                     return filasAfectadas > 0;
                 }
                 catch (Exception ex)
@@ -293,6 +456,7 @@ namespace CapaDatos
             }
         }
 
+
         public bool EliminarLibro(string isbn, out string error)
         {
             error = "";
@@ -301,6 +465,25 @@ namespace CapaDatos
                 try
                 {
                     conexion.Open();
+
+                    // quitar todass las relaciones en las tablas Libro_Autor, Libro_Categoria y Prestamo
+                    string sqlEliminarLibroAutor = "DELETE FROM Libro_Autor WHERE libro_isbn = @isbn;";
+                    string sqlEliminarLibroCategoria = "DELETE FROM Libro_Categoria WHERE libro_isbn = @isbn;";
+                    string sqlEliminarPrestamo = "DELETE FROM Prestamo WHERE libro_isbn = @isbn;";
+
+                    SqlCommand comandoEliminarLibroAutor = new SqlCommand(sqlEliminarLibroAutor, conexion);
+                    SqlCommand comandoEliminarLibroCategoria = new SqlCommand(sqlEliminarLibroCategoria, conexion);
+                    SqlCommand comandoEliminarPrestamo = new SqlCommand(sqlEliminarPrestamo, conexion);
+
+                    comandoEliminarLibroAutor.Parameters.AddWithValue("@isbn", isbn);
+                    comandoEliminarLibroCategoria.Parameters.AddWithValue("@isbn", isbn);
+                    comandoEliminarPrestamo.Parameters.AddWithValue("@isbn", isbn);
+
+                    comandoEliminarLibroAutor.ExecuteNonQuery();
+                    comandoEliminarLibroCategoria.ExecuteNonQuery();
+                    comandoEliminarPrestamo.ExecuteNonQuery();
+
+
                     string sqlEliminarLibro = "DELETE FROM Libro WHERE isbn = @isbn;";
 
                     SqlCommand comandoEliminarLibro = new SqlCommand(sqlEliminarLibro, conexion);
@@ -317,6 +500,56 @@ namespace CapaDatos
                     return false;
                 }
             }
+        }
+
+
+        //Anadir autor y categoria
+        public bool AnadirAutor(string nombre, out string error)
+        {
+            error = "";
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    SqlCommand comando = new SqlCommand("INSERT INTO Autor (nombre) VALUES (@nombre)", conexion);
+                    comando.Parameters.AddWithValue("@nombre", nombre);
+
+                    comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool AnadirCategoria(string descripcion, out string error)
+        {
+            error = "";
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    SqlCommand comando = new SqlCommand("INSERT INTO Categoria (descripcion) VALUES (@descripcion)", conexion);
+                    comando.Parameters.AddWithValue("@descripcion", descripcion);
+
+                    comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                    return false;
+                }
+            }
+
+            return true;
         }
 
     }

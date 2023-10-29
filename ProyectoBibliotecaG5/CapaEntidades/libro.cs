@@ -1,5 +1,7 @@
 ﻿
+using CapaEntidades;
 using System;
+using System.Collections.Generic;
 
 public class Libro : IEquatable<Libro>
 {
@@ -12,6 +14,8 @@ public class Libro : IEquatable<Libro>
         public int CantidadUnidadesDisponibles { get; set; }
         public bool EsPrestable { get; set; }
         public string BibliotecaNombre { get; set; }
+        public List<Categoria> Categorias { get; set; } // Ahora es una lista
+        public List<Autor> Autores { get; set; } // Ahora es una lista
 
     public Libro()
     {
@@ -22,7 +26,7 @@ public class Libro : IEquatable<Libro>
         Isbn = isbn;
     }
 
-    public Libro(string isbn, string titulo, string editorial, string sinopsis, string caratula, int cantidadUnidadesDisponibles, bool esPrestable, string bibliotecaNombre)
+    public Libro(string isbn, string titulo, string editorial, string sinopsis, string caratula, int cantidadUnidadesDisponibles, bool esPrestable, string bibliotecaNombre,List<Categoria> categorias, List<Autor> autores)
     {
         Isbn = isbn;
         Titulo = titulo;
@@ -32,6 +36,8 @@ public class Libro : IEquatable<Libro>
         CantidadUnidadesDisponibles = cantidadUnidadesDisponibles;
         EsPrestable = esPrestable;
         BibliotecaNombre = bibliotecaNombre;
+        Categorias = categorias;
+        Autores = autores;
     }
 
     public override bool Equals(object obj)
