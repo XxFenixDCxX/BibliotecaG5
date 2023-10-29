@@ -45,5 +45,11 @@ namespace CapaPresentacion
             FrmBuscarLector form = new FrmBuscarLector();
             form.ShowDialog();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            FrmDevoluciones form = new FrmDevoluciones();
+            form.ShowDialog();
+        }
     }
 }

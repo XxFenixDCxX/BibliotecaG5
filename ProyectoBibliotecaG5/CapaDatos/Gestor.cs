@@ -552,6 +552,38 @@ namespace CapaDatos
             return true;
         }
 
+        public List<Libro> devolverListaDeLibros(out String error)
+        {
+
+            error = "";
+            List<Libro> listaLibros = new List<Libro>();
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+
+                try
+                {
+                    conexion.Open();
+
+                    // Si existe el prestamo lo devuelvo
+                    string sqlLibros = "SELECT * FROM Libros";
+
+                    SqlCommand comandoLibros = new SqlCommand(sqlLibros, conexion);
+
+                    SqlDataReader reader = comandoLibros.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Libro libro = new Libro((string)reader["isbn"], (string)reader["titulo"], (string)reader["editorial"], (string)reader["sinopsis"], (string)reader["caratula"], (int)reader["cantidad_unidades_disponibles"], (bool)reader["es_prestable"], (string)reader["biblioteca_nombre"], null, null);
+                        
+                        listaLibros.Add(libro);
+                    }
+                    } catch (Exception ex)
+                {
+                    error = ex.Message;
+                }
+                return listaLibros;
+            }
+        }
     }
 }
 
