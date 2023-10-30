@@ -98,11 +98,11 @@ namespace CapaPresentacion
             if (chcEliminar.Checked == false)
             {
                 txtCarnet.Visible = true;
-                txtCarnet.Location = new Point(227, 166);
+                txtCarnet.Location = new Point(235, 355);
                 lblEjemploCarne.Visible = true;
-                lblEjemploCarne.Location = new Point(321,151);
+                lblEjemploCarne.Location = new Point(329,340);
                 lblINumeroCarne.Visible = true;
-                lblINumeroCarne.Location = new Point(220, 126);
+                lblINumeroCarne.Location = new Point(228, 315);
 
                 txtContrasena.Visible = true;
                 lblContrasena.Visible = true;
@@ -119,11 +119,11 @@ namespace CapaPresentacion
             else
             {
                 txtCarnet.Visible = true;
-                txtCarnet.Location = new Point(323, 225);
+                txtCarnet.Location = new Point(312, 408);
                 lblEjemploCarne.Visible = true;
-                lblEjemploCarne.Location = new Point(417, 210);
+                lblEjemploCarne.Location = new Point(406, 393);
                 lblINumeroCarne.Visible = true;
-                lblINumeroCarne.Location = new Point(316, 185);
+                lblINumeroCarne.Location = new Point(305, 368);
 
                 txtContrasena.Visible = false;
                 lblContrasena.Visible = false;
