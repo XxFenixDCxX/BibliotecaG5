@@ -185,13 +185,15 @@ namespace CapaPresentacion
 
                     string error;
                     bool resultado = Program.gestor.AnadirAutor(nombreAutor, out error);
+
+                    listBoxAutores.Items.Add(Program.gestor.ObtenerAutorPorNombre(nombreAutor, out error));
                     if (!resultado)
                     {
                         MessageBox.Show("Error al añadir el autor a la base de datos: " + error);
                         return;
                     }
 
-                    listBoxAutores.Items.Add(nombreAutor);
+                    
                 }
                 else
                 {
@@ -216,7 +218,7 @@ namespace CapaPresentacion
                         return;
                     }
 
-                    listBoxCategorias.Items.Add(nombreCategoria);
+                    listBoxCategorias.Items.Add(Program.gestor.ObtenerCategoriaPorNombre(nombreCategoria,out error));
                 }
                 else
                 {

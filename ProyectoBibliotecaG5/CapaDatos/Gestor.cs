@@ -410,7 +410,16 @@ namespace CapaDatos
                 try
                 {
                     conexion.Open();
-                    string sqlAgregarLibro = "INSERT INTO Libro (isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable) VALUES (@isbn, @titulo, @editorial, @sinopsis, @caratula, @cantidad_unidades_disponibles, @es_prestable);";
+                    string sqlAgregarLibro;
+                    if (string.IsNullOrEmpty(nuevoLibro.Caratula))
+                    {
+                        sqlAgregarLibro = "INSERT INTO Libro (isbn, titulo, editorial, sinopsis, cantidad_unidades_disponibles, es_prestable) VALUES (@isbn, @titulo, @editorial, @sinopsis, @cantidad_unidades_disponibles, @es_prestable);";
+                    }
+                    else
+                    {
+                         sqlAgregarLibro = "INSERT INTO Libro (isbn, titulo, editorial, sinopsis,caratula ,cantidad_unidades_disponibles, es_prestable) VALUES (@isbn, @titulo, @editorial, @sinopsis,@caratula ,@cantidad_unidades_disponibles, @es_prestable);";
+                    }
+         
 
                     SqlCommand comandoAgregarLibro = new SqlCommand(sqlAgregarLibro, conexion);
 
@@ -418,7 +427,11 @@ namespace CapaDatos
                     comandoAgregarLibro.Parameters.AddWithValue("@titulo", nuevoLibro.Titulo);
                     comandoAgregarLibro.Parameters.AddWithValue("@editorial", nuevoLibro.Editorial);
                     comandoAgregarLibro.Parameters.AddWithValue("@sinopsis", nuevoLibro.Sinopsis);
-                    comandoAgregarLibro.Parameters.AddWithValue("@caratula", nuevoLibro.Caratula);
+                    if (!string.IsNullOrEmpty(nuevoLibro.Caratula))
+                    {
+                        comandoAgregarLibro.Parameters.AddWithValue("@caratula", nuevoLibro.Caratula);
+                    }
+
                     comandoAgregarLibro.Parameters.AddWithValue("@cantidad_unidades_disponibles", nuevoLibro.CantidadUnidadesDisponibles);
                     comandoAgregarLibro.Parameters.AddWithValue("@es_prestable", nuevoLibro.EsPrestable);
 
@@ -551,6 +564,73 @@ namespace CapaDatos
 
             return true;
         }
+        public Autor ObtenerAutorPorNombre(string nombreAutor, out string error)
+        {
+            error = "";
+            Autor autor = null;
+
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    string sqlObtenerAutor = "SELECT * FROM Autor WHERE nombre = @nombre;";
+
+                    SqlCommand comandoObtenerAutor = new SqlCommand(sqlObtenerAutor, conexion);
+                    comandoObtenerAutor.Parameters.AddWithValue("@nombre", nombreAutor);
+
+                    SqlDataReader reader = comandoObtenerAutor.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        autor = new Autor(reader.GetInt32(0), reader.GetString(1));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    error += ex.Message;
+                }
+            }
+
+            return autor;
+        }
+
+
+        public Categoria ObtenerCategoriaPorNombre(string nombreCategoria, out string error)
+        {
+            error = "";
+            Categoria categoria = null;
+
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    string sqlObtenerCategoria = "SELECT * FROM Autor WHERE nombre = @nombre;";
+
+                    SqlCommand comandoObtenerCategoria = new SqlCommand(sqlObtenerCategoria, conexion);
+                    comandoObtenerCategoria.Parameters.AddWithValue("@nombre", nombreCategoria);
+
+                    SqlDataReader reader = comandoObtenerCategoria.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        categoria = new Categoria(reader.GetInt32(0), reader.GetString(1));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    error += ex.Message;
+                }
+            }
+
+            return categoria;
+        }
+
+
+
 
     }
 }

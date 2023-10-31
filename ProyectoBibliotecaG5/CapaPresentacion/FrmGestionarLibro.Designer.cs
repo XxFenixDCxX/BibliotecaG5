@@ -168,7 +168,7 @@
             // 
             this.lblUnidadesDisponibles.AutoSize = true;
             this.lblUnidadesDisponibles.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUnidadesDisponibles.Location = new System.Drawing.Point(249, 626);
+            this.lblUnidadesDisponibles.Location = new System.Drawing.Point(249, 658);
             this.lblUnidadesDisponibles.Name = "lblUnidadesDisponibles";
             this.lblUnidadesDisponibles.Size = new System.Drawing.Size(250, 29);
             this.lblUnidadesDisponibles.TabIndex = 14;
@@ -194,7 +194,7 @@
             this.BtnAplicar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.BtnAplicar.FlatAppearance.BorderSize = 0;
             this.BtnAplicar.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
-            this.BtnAplicar.Location = new System.Drawing.Point(674, 634);
+            this.BtnAplicar.Location = new System.Drawing.Point(674, 666);
             this.BtnAplicar.Name = "BtnAplicar";
             this.BtnAplicar.Size = new System.Drawing.Size(181, 41);
             this.BtnAplicar.TabIndex = 17;
@@ -216,7 +216,7 @@
             // 
             this.numUnidadesDisponiles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numUnidadesDisponiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
-            this.numUnidadesDisponiles.Location = new System.Drawing.Point(504, 625);
+            this.numUnidadesDisponiles.Location = new System.Drawing.Point(504, 657);
             this.numUnidadesDisponiles.Margin = new System.Windows.Forms.Padding(2);
             this.numUnidadesDisponiles.Maximum = new decimal(new int[] {
             500,
@@ -327,7 +327,7 @@
             // LblImagen
             // 
             this.LblImagen.AutoSize = true;
-            this.LblImagen.Location = new System.Drawing.Point(53, 248);
+            this.LblImagen.Location = new System.Drawing.Point(35, 227);
             this.LblImagen.Name = "LblImagen";
             this.LblImagen.Size = new System.Drawing.Size(99, 13);
             this.LblImagen.TabIndex = 36;
@@ -351,7 +351,7 @@
             this.groupBox1.Controls.Add(this.chckPrestable);
             this.groupBox1.Location = new System.Drawing.Point(59, 200);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(795, 231);
+            this.groupBox1.Size = new System.Drawing.Size(795, 258);
             this.groupBox1.TabIndex = 37;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del libro";
@@ -362,7 +362,7 @@
             this.groupBox2.Controls.Add(this.txtAutor);
             this.groupBox2.Controls.Add(this.BtnAnadir);
             this.groupBox2.Controls.Add(this.listBoxAutores);
-            this.groupBox2.Location = new System.Drawing.Point(59, 437);
+            this.groupBox2.Location = new System.Drawing.Point(59, 464);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(398, 174);
             this.groupBox2.TabIndex = 38;
@@ -385,7 +385,7 @@
             this.groupBox3.Controls.Add(this.txtCategoria);
             this.groupBox3.Controls.Add(this.btnCategoria);
             this.groupBox3.Controls.Add(this.listBoxCategorias);
-            this.groupBox3.Location = new System.Drawing.Point(463, 437);
+            this.groupBox3.Location = new System.Drawing.Point(463, 464);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(392, 174);
             this.groupBox3.TabIndex = 39;
@@ -408,7 +408,7 @@
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
-            this.button2.Location = new System.Drawing.Point(59, 631);
+            this.button2.Location = new System.Drawing.Point(59, 663);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(190, 44);
             this.button2.TabIndex = 40;
@@ -426,7 +426,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(930, 700);
+            this.ClientSize = new System.Drawing.Size(930, 719);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
