@@ -26,6 +26,17 @@ public class Libro : IEquatable<Libro>
         Isbn = isbn;
     }
 
+    public Libro(string isbn, string titulo, string editorial, string sinopsis, string caratula, int cantidadUnidadesDisponibles, bool esPrestable)
+    {
+        Isbn = isbn;
+        Titulo = titulo;
+        Editorial = editorial;
+        Sinopsis = sinopsis;
+        Caratula = caratula;
+        CantidadUnidadesDisponibles = cantidadUnidadesDisponibles;
+        EsPrestable = esPrestable;
+    }
+
     public Libro(string isbn, string titulo, string editorial, string sinopsis, string caratula, int cantidadUnidadesDisponibles, bool esPrestable, string bibliotecaNombre,List<Categoria> categorias, List<Autor> autores)
     {
         Isbn = isbn;
