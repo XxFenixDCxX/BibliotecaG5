@@ -162,6 +162,15 @@ namespace CapaDatos
                 using (SqlConnection conexion = new SqlConnection(cadConexion))
                 {
                     conexion.Open();
+                    using (SqlCommand commandPrestado = new SqlCommand("SELECT * FROM Prestamo WHERE  lector_numero_carnet = @numero_carnet", conexion))
+                    {
+                        commandPrestado.Parameters.AddWithValue("@numero_carnet", carnet);
+                        if (commandPrestado.ExecuteScalar() != null)
+                        {
+                            error = "El Lector tiene libros prestados no se puede eliminar";
+                            return;
+                        }
+                    }
                     using (SqlCommand commandExist = new SqlCommand("SELECT * FROM Lector WHERE numero_carnet = @numero_carnet", conexion))
                     {
                         commandExist.Parameters.AddWithValue("@numero_carnet", carnet);
