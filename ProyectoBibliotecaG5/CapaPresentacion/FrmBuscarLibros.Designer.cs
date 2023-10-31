@@ -47,6 +47,7 @@
             this.btnComienzo.TabIndex = 39;
             this.btnComienzo.Text = "Mostrar por comienzo";
             this.btnComienzo.UseVisualStyleBackColor = true;
+            this.btnComienzo.Click += new System.EventHandler(this.btnComienzo_Click);
             // 
             // txtComienzo
             // 
