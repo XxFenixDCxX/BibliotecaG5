@@ -28,20 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.controlCabezera1 = new CapaPresentacion.ControlCabezera();
             this.cboLectores = new System.Windows.Forms.ComboBox();
             this.lblLector = new System.Windows.Forms.Label();
             this.dgvLibros = new System.Windows.Forms.DataGridView();
+            this.controlCabezera1 = new CapaPresentacion.ControlCabezera();
+            this.btnDevuelto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLibros)).BeginInit();
             this.SuspendLayout();
-            // 
-            // controlCabezera1
-            // 
-            this.controlCabezera1.Location = new System.Drawing.Point(83, 15);
-            this.controlCabezera1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.controlCabezera1.Name = "controlCabezera1";
-            this.controlCabezera1.Size = new System.Drawing.Size(920, 201);
-            this.controlCabezera1.TabIndex = 0;
             // 
             // cboLectores
             // 
@@ -74,11 +67,31 @@
             this.dgvLibros.Size = new System.Drawing.Size(948, 229);
             this.dgvLibros.TabIndex = 25;
             // 
+            // controlCabezera1
+            // 
+            this.controlCabezera1.Location = new System.Drawing.Point(83, 15);
+            this.controlCabezera1.Margin = new System.Windows.Forms.Padding(5);
+            this.controlCabezera1.Name = "controlCabezera1";
+            this.controlCabezera1.Size = new System.Drawing.Size(920, 201);
+            this.controlCabezera1.TabIndex = 0;
+            // 
+            // btnDevuelto
+            // 
+            this.btnDevuelto.BackColor = System.Drawing.Color.LightGreen;
+            this.btnDevuelto.Location = new System.Drawing.Point(476, 585);
+            this.btnDevuelto.Name = "btnDevuelto";
+            this.btnDevuelto.Size = new System.Drawing.Size(146, 52);
+            this.btnDevuelto.TabIndex = 26;
+            this.btnDevuelto.Text = "Ha sido devuelto";
+            this.btnDevuelto.UseVisualStyleBackColor = false;
+            this.btnDevuelto.Click += new System.EventHandler(this.btnDevuelto_Click);
+            // 
             // FrmDevoluciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 662);
+            this.Controls.Add(this.btnDevuelto);
             this.Controls.Add(this.dgvLibros);
             this.Controls.Add(this.lblLector);
             this.Controls.Add(this.cboLectores);
@@ -100,5 +113,6 @@
         private System.Windows.Forms.ComboBox cboLectores;
         private System.Windows.Forms.Label lblLector;
         private System.Windows.Forms.DataGridView dgvLibros;
+        private System.Windows.Forms.Button btnDevuelto;
     }
 }

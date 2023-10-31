@@ -30,7 +30,7 @@ namespace CapaPresentacion
 
             foreach (Lector l in lectores)
             {
-                cboLectores.Items.Add(l.Nombre);
+                cboLectores.Items.Add(l);
             }
         }
 
@@ -40,8 +40,22 @@ namespace CapaPresentacion
 
             if (lector != null)
             {
-
+                cargarLibrosPrestados(lector);
             }
+        }
+
+        private void btnDevuelto_Click(object sender, EventArgs e)
+        {
+            Lector lector = cboLectores.SelectedItem as Lector;
+            gestor.EliminarLibrosPrestados(lector.NumeroCarnet, out string err);
+
+            cargarLibrosPrestados(lector);
+        }
+
+        private void cargarLibrosPrestados(Lector lector)
+        {
+            dgvLibros.DataSource = null;
+            dgvLibros.DataSource = gestor.devolverLibrosPrestados(lector.NumeroCarnet, out string err);
         }
     }
 }

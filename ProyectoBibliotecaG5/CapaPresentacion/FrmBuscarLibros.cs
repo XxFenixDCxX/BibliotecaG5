@@ -34,5 +34,27 @@ namespace CapaPresentacion
             }
             dgvListaLibros.DataSource = libros;
         }
+
+        private void btnComienzo_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtComienzo.Text))
+            {
+                MessageBox.Show("El comienzo no puede estar vacio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            List<Libro> libros = Program.gestor.devolverListaDeLibrosPorComienzo(txtComienzo.Text, out string errores);
+            if (!string.IsNullOrEmpty(errores))
+            {
+                MessageBox.Show(errores, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            dgvListaLibros.DataSource = null;
+            if (libros.Count == 0)
+            {
+                MessageBox.Show("No hay ninguno", "Atenció ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            dgvListaLibros.DataSource = libros;
+        }
     }
 }
