@@ -332,6 +332,7 @@
             this.LblImagen.Size = new System.Drawing.Size(99, 13);
             this.LblImagen.TabIndex = 36;
             this.LblImagen.Text = "Nombre del archivo";
+            this.LblImagen.Click += new System.EventHandler(this.LblImagen_Click);
             // 
             // groupBox1
             // 

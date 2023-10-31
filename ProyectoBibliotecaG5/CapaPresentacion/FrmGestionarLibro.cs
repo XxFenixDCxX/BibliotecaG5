@@ -102,10 +102,10 @@ namespace CapaPresentacion
 
 
                     bool esPrestable = chckPrestable.Checked;
-                    string isbn = txtIsbn.Text;
-                    string titulo = txtTitulo.Text;
-                    string editorial = txtEditorial.Text;
-                    string sinopsis = txtSinopsis.Text;
+                    string isbn = txtIsbn.Text.Trim();
+                    string titulo = txtTitulo.Text.Trim();
+                    string editorial = txtEditorial.Text.Trim();
+                    string sinopsis = txtSinopsis.Text.Trim();
                     string caratula = string.IsNullOrWhiteSpace(nombreFichero) ? null : nombreFichero;
                     int cantidadUnidadesDisponibles = (int)numUnidadesDisponiles.Value;
                     string nombreBiblioteca = Program.gestor.biblioteca.Nombre;
@@ -121,6 +121,14 @@ namespace CapaPresentacion
                     else
                     {
                         MessageBox.Show("EL libro se ha agregado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtAutor.Clear();
+                        txtCategoria.Clear();
+                        txtIsbn.Clear();
+                        txtSinopsis.Clear();
+                        txtTitulo.Clear();
+                        LblImagen.ResetText();
+                        txtEditorial.Clear();
+
                     }
                 }
 
@@ -140,7 +148,16 @@ namespace CapaPresentacion
                     }
                     else
                     {
+
+
                         MessageBox.Show("EL libro se ha borrado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtAutor.Clear();
+                        txtCategoria.Clear();
+                        txtIsbn.Clear();
+                        txtSinopsis.Clear();
+                        txtTitulo.Clear();
+                        LblImagen.ResetText();
+                        txtEditorial.Clear();
                     }
                 }
             }
@@ -266,5 +283,9 @@ namespace CapaPresentacion
 
         }
 
+        private void LblImagen_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

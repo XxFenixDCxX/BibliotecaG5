@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
@@ -461,10 +462,19 @@ namespace CapaDatos
             error = "";
             using (SqlConnection conexion = new SqlConnection(cadConexion))
             {
+                conexion.Open();
+                using (SqlCommand commandPrestado = new SqlCommand("SELECT * FROM Prestamo WHERE  libro_isbn = @libro_isbn", conexion))
+                {
+                    commandPrestado.Parameters.AddWithValue("@libro_isbn", isbn);
+                    if (commandPrestado.ExecuteScalar() != null)
+                    {
+                        error = "El libro está prestado . No se puede eliminar";
+                        return false;
+                    }
+                }
+
                 try
                 {
-                    conexion.Open();
-
                     // quitar todass las relaciones en las tablas Libro_Autor, Libro_Categoria y Prestamo
                     string sqlEliminarLibroAutor = "DELETE FROM Libro_Autor WHERE libro_isbn = @isbn;";
                     string sqlEliminarLibroCategoria = "DELETE FROM Libro_Categoria WHERE libro_isbn = @isbn;";
@@ -481,7 +491,6 @@ namespace CapaDatos
                     comandoEliminarLibroAutor.ExecuteNonQuery();
                     comandoEliminarLibroCategoria.ExecuteNonQuery();
                     comandoEliminarPrestamo.ExecuteNonQuery();
-
 
                     string sqlEliminarLibro = "DELETE FROM Libro WHERE isbn = @isbn;";
 
@@ -500,6 +509,7 @@ namespace CapaDatos
                 }
             }
         }
+
 
 
         //Anadir autor y categoria
