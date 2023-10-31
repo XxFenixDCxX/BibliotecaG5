@@ -11,12 +11,12 @@ CREATE TABLE Biblioteca (
 );
 
 CREATE TABLE Categoria (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     descripcion NVARCHAR(100)
 );
 
 CREATE TABLE Autor (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     nombre NVARCHAR(100) NOT NULL
 );
 
@@ -24,8 +24,8 @@ CREATE TABLE Libro (
     isbn NCHAR(13) PRIMARY KEY,
     titulo NVARCHAR(100) NOT NULL,
     editorial NVARCHAR(100) NOT NULL,
-    sinopsis NVARCHAR(100),
-    caratula NVARCHAR(100) NOT NULL,
+    sinopsis NVARCHAR(100) NOT NULL,
+    caratula NVARCHAR(100),
     cantidad_unidades_disponibles INT NOT NULL,
     es_prestable BIT NOT NULL
 );

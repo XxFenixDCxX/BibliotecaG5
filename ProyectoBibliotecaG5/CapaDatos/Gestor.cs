@@ -162,6 +162,15 @@ namespace CapaDatos
                 using (SqlConnection conexion = new SqlConnection(cadConexion))
                 {
                     conexion.Open();
+                    using (SqlCommand commandPrestado = new SqlCommand("SELECT * FROM Prestamo WHERE  lector_numero_carnet = @numero_carnet", conexion))
+                    {
+                        commandPrestado.Parameters.AddWithValue("@numero_carnet", carnet);
+                        if (commandPrestado.ExecuteScalar() != null)
+                        {
+                            error = "El Lector tiene libros prestados no se puede eliminar";
+                            return;
+                        }
+                    }
                     using (SqlCommand commandExist = new SqlCommand("SELECT * FROM Lector WHERE numero_carnet = @numero_carnet", conexion))
                     {
                         commandExist.Parameters.AddWithValue("@numero_carnet", carnet);
@@ -377,29 +386,6 @@ namespace CapaDatos
             return categorias;
         }
 
-
-
-        //public Categoria BuscarCategoria(int id)
-        //{
-        //    Categoria categoria = null;
-
-        //    using (SqlConnection conexion = new SqlConnection(cadConexion))
-        //    {
-        //        conexion.Open();
-
-        //        string selectQuery = "SELECT * FROM Categoria WHERE id = @id";
-        //        SqlCommand command = new SqlCommand(selectQuery, conexion);
-        //        command.Parameters.AddWithValue("@id", id);
-        //        SqlDataReader reader = command.ExecuteReader();
-
-        //        if (reader.Read())
-        //        {
-        //            categoria = new Categoria((int)reader["id"], (string)reader["descripcion"]);
-        //        }
-        //    }
-
-        //    return categoria;
-        //}
 
 
         public bool AgregarLibro(Libro nuevoLibro, out string error)
@@ -632,6 +618,103 @@ namespace CapaDatos
 
 
 
+        public List<Libro> devolverListaDeLibros(out String error)
+        {
+
+            error = "";
+            List<Libro> listaLibros = new List<Libro>();
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+
+                try
+                {
+                    conexion.Open();
+
+                    // Si existe el prestamo lo devuelvo
+                    string sqlLibros = "SELECT * FROM Libros";
+
+                    SqlCommand comandoLibros = new SqlCommand(sqlLibros, conexion);
+
+                    SqlDataReader reader = comandoLibros.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Libro libro = new Libro((string)reader["isbn"], (string)reader["titulo"], (string)reader["editorial"], (string)reader["sinopsis"], (string)reader["caratula"], (int)reader["cantidad_unidades_disponibles"], (bool)reader["es_prestable"], (string)reader["biblioteca_nombre"], null, null);
+                        
+                        listaLibros.Add(libro);
+                    }
+                    } catch (Exception ex)
+                {
+                    error = ex.Message;
+                }
+                return listaLibros;
+            }
+        }
+
+        //prestar libro comporbando que no este prestado y que quien quiera prestarlo no tenga ningun libro prestado
+        public void PrestarLibro(string isbn, string numeroCarnet, out string error)
+        {
+            error = "";
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    // Si existe el prestamo lo devuelvo
+                    string sqlPrestamo = "SELECT * FROM Prestamo WHERE libro_isbn = @isbn AND lector_numero_carnet = @numeroCarnet";
+                    SqlCommand comandoPrestamo = new SqlCommand(sqlPrestamo, conexion);
+                    comandoPrestamo.Parameters.AddWithValue("@isbn", isbn);
+                    comandoPrestamo.Parameters.AddWithValue("@numeroCarnet", numeroCarnet);
+
+                    SqlDataReader reader = comandoPrestamo.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        error = "El libro ya esta prestado";
+                    }
+
+                    reader.Close();
+
+                    // Si el lector tiene 3 libros prestados no puede prestar mas
+                    string sqlPrestamosLector = "SELECT * FROM Prestamo WHERE lector_numero_carnet = @numeroCarnet";
+                    SqlCommand comandoPrestamosLector = new SqlCommand(sqlPrestamosLector, conexion);
+                    comandoPrestamosLector.Parameters.AddWithValue("@numeroCarnet", numeroCarnet);
+
+                    SqlDataReader readerPrestamosLector = comandoPrestamosLector.ExecuteReader();
+
+                    if (readerPrestamosLector.HasRows)
+                    {
+                        int contador = 0;
+                        while (readerPrestamosLector.Read())
+                        {
+                            contador++;
+                        }
+
+                        if (contador >= 3)
+                        {
+                            error = "El lector ya tiene 3 libros prestados";
+                        }
+                    }
+
+                    readerPrestamosLector.Close();
+
+                    // Si el libro no esta prestado y el lector no tiene 3 libros prestados, presto el libro
+                    string sqlPrestarLibro = "INSERT INTO Prestamo (libro_isbn, lector_numero_carnet, fecha_prestamo, fecha_devolucion) VALUES (@isbn, @numeroCarnet, @fechaPrestamo, @fechaDevolucion)";
+                    SqlCommand comandoPrestarLibro = new SqlCommand(sqlPrestarLibro, conexion);
+                    comandoPrestarLibro.Parameters.AddWithValue("@isbn", isbn);
+                    comandoPrestarLibro.Parameters.AddWithValue("@numeroCarnet", numeroCarnet);
+                    comandoPrestarLibro.Parameters.AddWithValue("@fechaPrestamo", DateTime.Now);
+                    comandoPrestarLibro.Parameters.AddWithValue("@fechaDevolucion", DateTime.Now.AddDays(15));
+
+
+                    
+                }catch (Exception ex)
+                {
+                    error = ex.Message;
+                }
+            }
+        }
     }
 }
 
