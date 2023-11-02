@@ -640,24 +640,74 @@ namespace CapaDatos
                 {
                     conexion.Open();
 
-                    // Si existe el prestamo lo devuelvo
-                    string sqlLibros = "SELECT * FROM Libros";
+                    string sqlLibros = "SELECT * FROM Libro;";
 
                     SqlCommand comandoLibros = new SqlCommand(sqlLibros, conexion);
 
-                    SqlDataReader reader = comandoLibros.ExecuteReader();
+                    SqlDataReader readerLibros = comandoLibros.ExecuteReader();
 
-                    while (reader.Read())
+                    while (readerLibros.Read())
                     {
-                        Libro libro = new Libro((string)reader["isbn"], (string)reader["titulo"], (string)reader["editorial"], (string)reader["sinopsis"], (string)reader["caratula"], (int)reader["cantidad_unidades_disponibles"], (bool)reader["es_prestable"], (string)reader["biblioteca_nombre"], null, null);
-                        
-                        listaLibros.Add(libro);
+                        string isbn = readerLibros.GetString(readerLibros.GetOrdinal("isbn"));
+                        string titulo = readerLibros.GetString(readerLibros.GetOrdinal("titulo"));
+                        string editorial = readerLibros.GetString(readerLibros.GetOrdinal("editorial"));
+                        string sinopsis = readerLibros.GetString(readerLibros.GetOrdinal("sinopsis"));
+                        string caratula = readerLibros.GetString(readerLibros.GetOrdinal("caratula"));
+                        int cantidad_unidades_disponibles = readerLibros.GetInt32(readerLibros.GetOrdinal("cantidad_unidades_disponibles"));
+                        bool es_prestable = readerLibros.GetBoolean(readerLibros.GetOrdinal("es_prestable"));
+                        Libro Libros = new Libro(isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable);
+                        listaLibros.Add(Libros);
                     }
-                    } catch (Exception ex)
+
+                }
+                catch (Exception ex)
                 {
-                    error = ex.Message;
+                    error += ex.ToString();
                 }
                 return listaLibros;
+
+            }
+        }
+
+        public List<Libro> devolverListaDeLibrosPorComienzo(string comienzo, out String error)
+        {
+
+            error = "";
+            List<Libro> listaLibros = new List<Libro>();
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+
+                try
+                {
+                    conexion.Open();
+
+                    string sqlLibros = "SELECT * FROM Libro WHERE Libro.titulo LIKE @comienzo;";
+
+                    SqlCommand comandoLibros = new SqlCommand(sqlLibros, conexion);
+                    comandoLibros.Parameters.AddWithValue("@comienzo", comienzo + "%");
+
+                    SqlDataReader readerLibros = comandoLibros.ExecuteReader();
+
+                    while (readerLibros.Read())
+                    {
+                        string isbn = readerLibros.GetString(readerLibros.GetOrdinal("isbn"));
+                        string titulo = readerLibros.GetString(readerLibros.GetOrdinal("titulo"));
+                        string editorial = readerLibros.GetString(readerLibros.GetOrdinal("editorial"));
+                        string sinopsis = readerLibros.GetString(readerLibros.GetOrdinal("sinopsis"));
+                        string caratula = readerLibros.GetString(readerLibros.GetOrdinal("caratula"));
+                        int cantidad_unidades_disponibles = readerLibros.GetInt32(readerLibros.GetOrdinal("cantidad_unidades_disponibles"));
+                        bool es_prestable = readerLibros.GetBoolean(readerLibros.GetOrdinal("es_prestable"));
+                        Libro Libros = new Libro(isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable);
+                        listaLibros.Add(Libros);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    error += ex.ToString();
+                }
+                return listaLibros;
+
             }
         }
 
