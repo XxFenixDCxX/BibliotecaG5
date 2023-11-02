@@ -14,6 +14,8 @@ public class Libro : IEquatable<Libro>
         public int CantidadUnidadesDisponibles { get; set; }
         public bool EsPrestable { get; set; }
         public string BibliotecaNombre { get; set; }
+        public string CategoriasString { get; set; }
+        public string AutoresString { get; set; }
         public List<Categoria> Categorias { get; set; } // Ahora es una lista
         public List<Autor> Autores { get; set; } // Ahora es una lista
 
@@ -51,6 +53,18 @@ public class Libro : IEquatable<Libro>
         Autores = autores;
     }
 
+    public Libro(string isbn, string titulo, string editorial, string sinopsis, string caratula, int cantidadUnidadesDisponibles, bool esPrestable, string categorias, string autores)
+    {
+        Isbn = isbn;
+        Titulo = titulo;
+        Editorial = editorial;
+        Sinopsis = sinopsis;
+        Caratula = caratula;
+        CantidadUnidadesDisponibles = cantidadUnidadesDisponibles;
+        EsPrestable = esPrestable;
+        CategoriasString = categorias;
+        AutoresString = autores;
+    }
     public override bool Equals(object obj)
     {
         return Equals(obj as Libro);

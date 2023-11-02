@@ -78,6 +78,7 @@
             this.dgvListaLibros.Name = "dgvListaLibros";
             this.dgvListaLibros.Size = new System.Drawing.Size(711, 186);
             this.dgvListaLibros.TabIndex = 36;
+            this.dgvListaLibros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListaLibros_CellContentClick);
             // 
             // lblTituloListaLibros
             // 

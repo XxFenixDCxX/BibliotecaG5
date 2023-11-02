@@ -33,6 +33,10 @@ namespace CapaPresentacion
                 return;
             }
             dgvListaLibros.DataSource = libros;
+            //MessageBox.Show("kdjf");
+            //dgvListaLibros.DataSource = (from l in libros
+            //                             select new { l.Isbn, l.Titulo, Autor1 = (l.Autores!=null? l.Autores[0].Nombre : "NO tiene")}).ToList();
+
         }
 
         private void btnComienzo_Click(object sender, EventArgs e)
@@ -55,6 +59,11 @@ namespace CapaPresentacion
                 return;
             }
             dgvListaLibros.DataSource = libros;
+        }
+
+        private void dgvListaLibros_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

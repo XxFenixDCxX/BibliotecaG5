@@ -16,6 +16,10 @@ namespace CapaEntidades
             Id = id;
             Nombre = nombre;
         }
+        public Autor(string nombre)
+        {
+            Nombre = nombre;
+        }
         public override string ToString()
         {
             return Nombre;

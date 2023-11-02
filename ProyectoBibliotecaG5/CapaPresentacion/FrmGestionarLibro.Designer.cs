@@ -418,21 +418,21 @@
             // 
             // controlCabezera1
             // 
-            this.controlCabezera1.Location = new System.Drawing.Point(36, -1);
+            this.controlCabezera1.Location = new System.Drawing.Point(97, -35);
             this.controlCabezera1.Name = "controlCabezera1";
-            this.controlCabezera1.Size = new System.Drawing.Size(774, 129);
-            this.controlCabezera1.TabIndex = 27;
+            this.controlCabezera1.Size = new System.Drawing.Size(690, 163);
+            this.controlCabezera1.TabIndex = 41;
             // 
             // FrmGestionarLibro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(930, 719);
+            this.Controls.Add(this.controlCabezera1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.controlCabezera1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.numUnidadesDisponiles);
@@ -475,7 +475,6 @@
         private System.Windows.Forms.CheckBox chckPrestable;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label2;
-        private ControlCabezera controlCabezera1;
         private System.Windows.Forms.TextBox txtCategoria;
         private System.Windows.Forms.TextBox txtAutor;
         private System.Windows.Forms.Button BtnAnadir;
@@ -489,5 +488,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button BtnBuscarAutor;
         private System.Windows.Forms.Button BtnBuscarCategoria;
+        private ControlCabezera controlCabezera1;
     }
 }

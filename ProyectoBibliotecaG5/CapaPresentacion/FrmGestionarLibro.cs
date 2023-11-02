@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace CapaPresentacion
 {
     public partial class FrmGestionarLibro : Form
     {
+        string rutaCaratula;
         string nombreFichero;
         Dictionary<string, Autor> diccionarioAutores;
         Dictionary<string, Categoria> diccionarioCategorias;
@@ -65,6 +67,9 @@ namespace CapaPresentacion
             {
                 nombreFichero = openFileDialog1.FileName;
                 LblImagen.Text = nombreFichero;
+                var ficheroSplit = nombreFichero.Split('\\');
+                rutaCaratula = "./imagenes/" + ficheroSplit[ficheroSplit.Length - 1];
+                File.Copy(nombreFichero, rutaCaratula);
             }
         }
 
@@ -111,7 +116,7 @@ namespace CapaPresentacion
                     string nombreBiblioteca = Program.gestor.biblioteca.Nombre;
 
 
-                    Libro nuevoLibro = new Libro(isbn, titulo, editorial, sinopsis, caratula, cantidadUnidadesDisponibles, esPrestable, nombreBiblioteca , categoriasSeleccionadas, autoresSeleccionados);
+                    Libro nuevoLibro = new Libro(isbn, titulo, editorial, sinopsis, rutaCaratula, cantidadUnidadesDisponibles, esPrestable, nombreBiblioteca , categoriasSeleccionadas, autoresSeleccionados);
 
 
                     if (!Program.gestor.AgregarLibro(nuevoLibro, out string err))
@@ -197,25 +202,25 @@ namespace CapaPresentacion
             string nombreAutor = txtAutor.Text;
             if (nombreAutor.Length > 2)
             {
-                if (!listBoxAutores.Items.Contains(nombreAutor))
+                string error;
+                Autor autor = Program.gestor.ObtenerAutorPorNombre(nombreAutor, out error);
+                if (autor == null)
                 {
-
-                    string error;
                     bool resultado = Program.gestor.AnadirAutor(nombreAutor, out error);
-
-                    listBoxAutores.Items.Add(Program.gestor.ObtenerAutorPorNombre(nombreAutor, out error));
+                    Autor autorN = Program.gestor.ObtenerAutorPorNombre(nombreAutor, out error);
                     if (!resultado)
                     {
                         MessageBox.Show("Error al añadir el autor a la base de datos: " + error);
+
                         return;
                     }
-
-                    
+                    listBoxAutores.Items.Add(autorN);
                 }
                 else
                 {
                     MessageBox.Show("Este autor ya ha sido añadido.");
                 }
+
             }
         }
 
@@ -224,18 +229,20 @@ namespace CapaPresentacion
             string nombreCategoria = txtCategoria.Text;
             if (nombreCategoria.Length > 2)
             {
-                if (!listBoxCategorias.Items.Contains(nombreCategoria))
+                string error;
+                Categoria categoria = Program.gestor.ObtenerCategoriaPorNombre(nombreCategoria, out error);
+                if (categoria == null)
                 {
-                    // Añadir la categoría a la base de datos
-                    string error;
                     bool resultado = Program.gestor.AnadirCategoria(nombreCategoria, out error);
+                    Categoria categoriaN = Program.gestor.ObtenerCategoriaPorNombre(nombreCategoria, out error);
+
                     if (!resultado)
                     {
                         MessageBox.Show("Error al añadir la categoría a la base de datos: " + error);
                         return;
                     }
+                    listBoxCategorias.Items.Add(categoriaN);
 
-                    listBoxCategorias.Items.Add(Program.gestor.ObtenerCategoriaPorNombre(nombreCategoria,out error));
                 }
                 else
                 {

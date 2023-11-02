@@ -604,10 +604,10 @@ namespace CapaDatos
                 {
                     conexion.Open();
 
-                    string sqlObtenerCategoria = "SELECT * FROM Autor WHERE nombre = @nombre;";
+                    string sqlObtenerCategoria = "SELECT * FROM Categoria WHERE descripcion = @descripcion;";
 
                     SqlCommand comandoObtenerCategoria = new SqlCommand(sqlObtenerCategoria, conexion);
-                    comandoObtenerCategoria.Parameters.AddWithValue("@nombre", nombreCategoria);
+                    comandoObtenerCategoria.Parameters.AddWithValue("@descripcion", nombreCategoria);
 
                     SqlDataReader reader = comandoObtenerCategoria.ExecuteReader();
 
@@ -652,10 +652,43 @@ namespace CapaDatos
                         string titulo = readerLibros.GetString(readerLibros.GetOrdinal("titulo"));
                         string editorial = readerLibros.GetString(readerLibros.GetOrdinal("editorial"));
                         string sinopsis = readerLibros.GetString(readerLibros.GetOrdinal("sinopsis"));
-                        string caratula = readerLibros.GetString(readerLibros.GetOrdinal("caratula"));
+                        string caratula = null;
+                        using (SqlCommand comandoComprobar = new SqlCommand("SELECT caratula FROM Libro Where Libro.isbn = @isbn", conexion))
+                        {
+                            comandoComprobar.Parameters.AddWithValue("@isbn", isbn);
+
+                            object resultado = comandoComprobar.ExecuteScalar();
+
+                            if (resultado != null && resultado != DBNull.Value)
+                            {
+                                caratula = resultado.ToString();
+                            }
+                        }
+
                         int cantidad_unidades_disponibles = readerLibros.GetInt32(readerLibros.GetOrdinal("cantidad_unidades_disponibles"));
                         bool es_prestable = readerLibros.GetBoolean(readerLibros.GetOrdinal("es_prestable"));
-                        Libro Libros = new Libro(isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable);
+                        string autores = "";
+                        using (SqlCommand commandAutores = new SqlCommand("SELECT nombre FROM Autor INNER JOIN Libro_Autor ON Autor.id = Libro_Autor.autor_id Where Libro_Autor.libro_isbn = @isbn", conexion))
+                        {
+                            commandAutores.Parameters.AddWithValue("@isbn", isbn);
+                            SqlDataReader readerAutores = commandAutores.ExecuteReader();
+                            while (readerAutores.Read())
+                            {
+                                autores += readerAutores.GetString(readerAutores.GetOrdinal("nombre"))+", ";
+                            }
+                        }
+
+                        string categorias = "";
+                        using (SqlCommand commandCategorias = new SqlCommand("SELECT descripcion FROM Categoria INNER JOIN Libro_Categoria ON Categoria.id = Libro_Categoria.categoria_id Where Libro_Categoria.libro_isbn = @isbn", conexion))
+                        {
+                            commandCategorias.Parameters.AddWithValue("@isbn", isbn);
+                            SqlDataReader readerCategorias = commandCategorias.ExecuteReader();
+                            while (readerCategorias.Read())
+                            {
+                                categorias += readerCategorias.GetString(readerCategorias.GetOrdinal("descripcion"))+", ";
+                            }
+                        }
+                        Libro Libros = new Libro(isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable, categorias, autores);
                         listaLibros.Add(Libros);
                     }
 
@@ -694,10 +727,42 @@ namespace CapaDatos
                         string titulo = readerLibros.GetString(readerLibros.GetOrdinal("titulo"));
                         string editorial = readerLibros.GetString(readerLibros.GetOrdinal("editorial"));
                         string sinopsis = readerLibros.GetString(readerLibros.GetOrdinal("sinopsis"));
-                        string caratula = readerLibros.GetString(readerLibros.GetOrdinal("caratula"));
+                        string caratula = null;
+                        using (SqlCommand comandoComprobar = new SqlCommand("SELECT caratula FROM Libro Where Libro.isbn = @isbn", conexion))
+                        {
+                            comandoComprobar.Parameters.AddWithValue("@isbn", isbn);
+
+                            object resultado = comandoComprobar.ExecuteScalar();
+
+                            if (resultado != null && resultado != DBNull.Value)
+                            {
+                                caratula = resultado.ToString();
+                            }
+                        }
                         int cantidad_unidades_disponibles = readerLibros.GetInt32(readerLibros.GetOrdinal("cantidad_unidades_disponibles"));
                         bool es_prestable = readerLibros.GetBoolean(readerLibros.GetOrdinal("es_prestable"));
-                        Libro Libros = new Libro(isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable);
+                        string autores = "";
+                        using (SqlCommand commandAutores = new SqlCommand("SELECT nombre FROM Autor INNER JOIN Libro_Autor ON Autor.id = Libro_Autor.autor_id Where Libro_Autor.libro_isbn = @isbn", conexion))
+                        {
+                            commandAutores.Parameters.AddWithValue("@isbn", isbn);
+                            SqlDataReader readerAutores = commandAutores.ExecuteReader();
+                            while (readerAutores.Read())
+                            {
+                                autores += readerAutores.GetString(readerAutores.GetOrdinal("nombre")) + ", ";
+                            }
+                        }
+
+                        string categorias = "";
+                        using (SqlCommand commandCategorias = new SqlCommand("SELECT descripcion FROM Categoria INNER JOIN Libro_Categoria ON Categoria.id = Libro_Categoria.categoria_id Where Libro_Categoria.libro_isbn = @isbn", conexion))
+                        {
+                            commandCategorias.Parameters.AddWithValue("@isbn", isbn);
+                            SqlDataReader readerCategorias = commandCategorias.ExecuteReader();
+                            while (readerCategorias.Read())
+                            {
+                                categorias += readerCategorias.GetString(readerCategorias.GetOrdinal("descripcion")) + ", ";
+                            }
+                        }
+                        Libro Libros = new Libro(isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable, categorias, autores);
                         listaLibros.Add(Libros);
                     }
 
