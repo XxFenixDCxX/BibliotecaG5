@@ -28,34 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.controlCabezera1 = new CapaPresentacion.ControlCabezera();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cboLectores = new System.Windows.Forms.ComboBox();
             this.lblLector = new System.Windows.Forms.Label();
             this.dgvLibros = new System.Windows.Forms.DataGridView();
+            this.controlCabezera1 = new CapaPresentacion.ControlCabezera();
+            this.btnDevuelto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLibros)).BeginInit();
             this.SuspendLayout();
             // 
-            // controlCabezera1
+            // cboLectores
             // 
-            this.controlCabezera1.Location = new System.Drawing.Point(62, 12);
-            this.controlCabezera1.Name = "controlCabezera1";
-            this.controlCabezera1.Size = new System.Drawing.Size(690, 163);
-            this.controlCabezera1.TabIndex = 0;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(110, 227);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 1;
+            this.cboLectores.FormattingEnabled = true;
+            this.cboLectores.Location = new System.Drawing.Point(147, 279);
+            this.cboLectores.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboLectores.Name = "cboLectores";
+            this.cboLectores.Size = new System.Drawing.Size(160, 24);
+            this.cboLectores.TabIndex = 1;
+            this.cboLectores.SelectedIndexChanged += new System.EventHandler(this.cboLectores_SelectedIndexChanged);
             // 
             // lblLector
             // 
             this.lblLector.AutoSize = true;
-            this.lblLector.Location = new System.Drawing.Point(107, 211);
+            this.lblLector.Location = new System.Drawing.Point(143, 260);
+            this.lblLector.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLector.Name = "lblLector";
-            this.lblLector.Size = new System.Drawing.Size(37, 13);
+            this.lblLector.Size = new System.Drawing.Size(44, 16);
             this.lblLector.TabIndex = 2;
             this.lblLector.Text = "Lector";
             // 
@@ -63,23 +60,47 @@
             // 
             this.dgvLibros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLibros.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dgvLibros.Location = new System.Drawing.Point(62, 273);
+            this.dgvLibros.Location = new System.Drawing.Point(83, 336);
+            this.dgvLibros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvLibros.Name = "dgvLibros";
-            this.dgvLibros.Size = new System.Drawing.Size(711, 186);
+            this.dgvLibros.RowHeadersWidth = 51;
+            this.dgvLibros.Size = new System.Drawing.Size(948, 229);
             this.dgvLibros.TabIndex = 25;
+            // 
+            // controlCabezera1
+            // 
+            this.controlCabezera1.Location = new System.Drawing.Point(83, 15);
+            this.controlCabezera1.Margin = new System.Windows.Forms.Padding(5);
+            this.controlCabezera1.Name = "controlCabezera1";
+            this.controlCabezera1.Size = new System.Drawing.Size(920, 201);
+            this.controlCabezera1.TabIndex = 0;
+            // 
+            // btnDevuelto
+            // 
+            this.btnDevuelto.BackColor = System.Drawing.Color.LightGreen;
+            this.btnDevuelto.Location = new System.Drawing.Point(476, 585);
+            this.btnDevuelto.Name = "btnDevuelto";
+            this.btnDevuelto.Size = new System.Drawing.Size(146, 52);
+            this.btnDevuelto.TabIndex = 26;
+            this.btnDevuelto.Text = "Ha sido devuelto";
+            this.btnDevuelto.UseVisualStyleBackColor = false;
+            this.btnDevuelto.Click += new System.EventHandler(this.btnDevuelto_Click);
             // 
             // FrmDevoluciones
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(827, 538);
+            this.ClientSize = new System.Drawing.Size(1103, 662);
+            this.Controls.Add(this.btnDevuelto);
             this.Controls.Add(this.dgvLibros);
             this.Controls.Add(this.lblLector);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cboLectores);
             this.Controls.Add(this.controlCabezera1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmDevoluciones";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmDevoluciones";
+            this.Load += new System.EventHandler(this.FrmDevoluciones_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLibros)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -89,8 +110,9 @@
         #endregion
 
         private ControlCabezera controlCabezera1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cboLectores;
         private System.Windows.Forms.Label lblLector;
         private System.Windows.Forms.DataGridView dgvLibros;
+        private System.Windows.Forms.Button btnDevuelto;
     }
 }

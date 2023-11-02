@@ -775,6 +775,67 @@ namespace CapaDatos
                 }
             }
         }
+
+        public List<Libro> devolverLibrosPrestados(String numero_carnet, out string err)
+        {
+            err = "";
+            List<Libro> libros = new List<Libro>();
+
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    string sqlPrestamo = "SELECT Libro.* FROM Libro INNER JOIN Prestamo ON Libro.isbn = Prestamo.libro_isbn WHERE Prestamo.lector_numero_carnet = @numeroCarnet";
+                    SqlCommand comandoPrestamo = new SqlCommand(sqlPrestamo, conexion);
+                    comandoPrestamo.Parameters.AddWithValue("@numeroCarnet", numero_carnet);
+
+                    SqlDataReader reader = comandoPrestamo.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string isbn = reader.GetString(reader.GetOrdinal("isbn"));
+                        string titulo = reader.GetString(reader.GetOrdinal("titulo"));
+                        string editorial = reader.GetString(reader.GetOrdinal("editorial"));
+                        string sinopsis = reader.GetString(reader.GetOrdinal("sinopsis"));
+                        string caratula = reader.GetString(reader.GetOrdinal("caratula"));
+                        int cantidad_unidades_disponibles = reader.GetInt32(reader.GetOrdinal("cantidad_unidades_disponibles"));
+                        bool es_prestable = reader.GetBoolean(reader.GetOrdinal("es_prestable"));
+                        Libro Libros = new Libro(isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable);
+                        libros.Add(Libros);
+                    }
+                    return libros;
+
+                } catch (Exception ex)
+                {
+                    err = ex.Message;
+                    return null;
+                }
+            }
+        }
+
+        public void EliminarLibrosPrestados(string numeroCarnet, out string err)
+        {
+            err = "";
+            using (SqlConnection conexion = new SqlConnection(cadConexion))
+            {
+                try
+                {
+                    conexion.Open();
+                    string sql = "DELETE FROM Prestamo WHERE lector_numero_carnet = @numeroCarnet";
+                    SqlCommand cmd = new SqlCommand(sql, conexion);
+                    cmd.Parameters.AddWithValue("@numeroCarnet", numeroCarnet);
+
+                    cmd.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                    err = ex.Message; 
+                    return;
+                }
+            }
+        }
+
     }
 }
 

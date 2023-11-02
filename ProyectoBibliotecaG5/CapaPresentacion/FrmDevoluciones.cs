@@ -19,35 +19,43 @@ namespace CapaPresentacion
         {
             InitializeComponent();
         }
-
-        private void MainForm_Load(object sender, EventArgs e)
+        private void FrmDevoluciones_Load(object sender, EventArgs e)
         {
-            // Aquí puedes cargar datos de la tabla "Libro" en un DataGridView
             dgvLibros.Rows.Clear();
-            List<Libro> libros = new List<Libro>();
-            libros.AddRange(gestor.devolverListaDeLibros(out string err));
-            // Ejemplo: dgvLibros.DataSource = ObtenerDatosLibros();
-            dgvLibros.DataSource = libros;
+            cboLectores.Items.Clear();
+
+            List<Lector> lectores = new List<Lector>();
+
+            lectores.AddRange(gestor.devolverListaLectores(out string err));
+
+            foreach (Lector l in lectores)
+            {
+                cboLectores.Items.Add(l);
+            }
         }
 
-        private void btnAgregarLibro_Click(object sender, EventArgs e)
+        private void cboLectores_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Aquí puedes abrir un nuevo formulario o cuadro de diálogo para agregar un nuevo libro
-            // Ejemplo: AgregarLibroForm agregarLibroForm = new AgregarLibroForm();
-            // agregarLibroForm.ShowDialog();
+            Lector lector = cboLectores.SelectedItem as Lector;
+
+            if (lector != null)
+            {
+                cargarLibrosPrestados(lector);
+            }
         }
 
-        // Puedes agregar otros eventos para editar o eliminar libros
-
-        private void btnEditarLibro_Click(object sender, EventArgs e)
+        private void btnDevuelto_Click(object sender, EventArgs e)
         {
-            // Aquí puedes abrir un formulario para editar un libro seleccionado en el DataGridView
+            Lector lector = cboLectores.SelectedItem as Lector;
+            gestor.EliminarLibrosPrestados(lector.NumeroCarnet, out string err);
+
+            cargarLibrosPrestados(lector);
         }
 
-        private void btnEliminarLibro_Click(object sender, EventArgs e)
+        private void cargarLibrosPrestados(Lector lector)
         {
-            // Aquí puedes eliminar un libro seleccionado en el DataGridView
+            dgvLibros.DataSource = null;
+            dgvLibros.DataSource = gestor.devolverLibrosPrestados(lector.NumeroCarnet, out string err);
         }
-
     }
 }

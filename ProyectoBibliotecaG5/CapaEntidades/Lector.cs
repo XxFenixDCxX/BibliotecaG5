@@ -43,7 +43,7 @@ namespace CapaEntidades
 
         public override string ToString()
         {
-            return base.ToString();
+            return this.Nombre;
         }
 
         public override bool Equals(object obj)
