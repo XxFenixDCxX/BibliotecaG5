@@ -12,12 +12,14 @@ DELETE FROM Categoria;
 DELETE FROM Autor;
 DELETE FROM Libro;
 DELETE FROM Lector;
+DBCC CHECKIDENT (Categoria, RESEED, 0)
+DBCC CHECKIDENT (Autor, RESEED, 0)
 
 INSERT INTO Biblioteca (nombre, lugar, imagen) VALUES ('Biblioteca Central', 'Barcelona', 'https://images.vexels.com/media/users/3/229885/isolated/preview/886153261393ecf90180d83178307a64-trazo-de-puntos-cardinales-de-la-brujula-de-navegacion.png');
 
-INSERT INTO Categoria (id, descripcion) VALUES (1, 'Narrativa'), (2, 'Ciencia Ficción'), (3, 'Historia');
+INSERT INTO Categoria (descripcion) VALUES ('Narrativa'), ('Ciencia Ficción'), ('Historia');
 
-INSERT INTO Autor (id, nombre) VALUES (1, 'Gabriel García Márquez'), (2, 'Isaac Asimov'), (3, 'Yuval Noah Harari');
+INSERT INTO Autor (nombre) VALUES ('Gabriel García Márquez'), ('Isaac Asimov'), ('Yuval Noah Harari');
 
 INSERT INTO Libro (isbn, titulo, editorial, sinopsis, caratula, cantidad_unidades_disponibles, es_prestable) VALUES 
 ('123434567', 'Cien años de soledad', 'Cátedra', 'Una obra maestra de la literatura...', 'cien_anos_de_soledad.jpg', 5, 1),
