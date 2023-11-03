@@ -43,5 +43,5 @@ INSERT INTO Lector (numero_carnet, nombre, contrasena, telefono, email) VALUES
 (2, 'Ana Gómez', 'ana_gomez_456', '+34 987654321', 'ana.gomez@example.com');
 
 INSERT INTO Prestamo (id, fecha_prestamo, fecha_devolucion, lector_numero_carnet, libro_isbn) VALUES 
-(1, '2023-10-01', NULL, 1, '123434567'),
+(1, '2023-10-01', '2023-11-06', 1, '123434567'),
 (2, '2023-10-05','2023-10-06' , 2, '126734568');
