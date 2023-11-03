@@ -26,7 +26,7 @@ namespace CapaPresentacion
 
             List<Lector> lectores = new List<Lector>();
 
-            lectores.AddRange(gestor.devolverListaLectores(out string err));
+            lectores.AddRange(gestor.devolverListaDeMorosos(out string err));
 
             foreach (Lector l in lectores)
             {
