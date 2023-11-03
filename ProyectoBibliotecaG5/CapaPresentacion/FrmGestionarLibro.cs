@@ -171,27 +171,54 @@ namespace CapaPresentacion
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+
             if (checkBox1.Checked)
             {
 
-                txtTitulo.Enabled = false;
-                txtEditorial.Enabled = false;
-                txtSinopsis.Enabled = false;
-                numUnidadesDisponiles.Enabled = false;
-                button1.Enabled = false;
-                chckPrestable.Enabled = false;
-
+                txtTitulo.Visible = false;
+                txtEditorial.Visible = false;
+                txtSinopsis.Visible = false;
+                numUnidadesDisponiles.Visible = false;
+                button1.Visible = false;
+                chckPrestable.Visible = false;
+                groupBox2.Visible = false;
+                groupBox3.Visible = false;
+                lblUnidadesDisponibles.Visible = false;
+                lblCaratula.Visible = false;
+                lblEditorial.Visible = false;
+                lblPrestable.Visible = false;
+                lblSinopsis.Visible = false;
+                lblTitulo.Visible = false;
+                LblImagen.Visible = false;
+                lblIsbn.Location = new Point(150, 120);
+                lblIsbn.Visible = true;
+                txtIsbn.Location = new Point(250,120);
+                txtIsbn.Visible = true;
+                label1.Visible = false;
 
             }
             else
             {
-                txtTitulo.Enabled = true;
-                txtEditorial.Enabled = true;
-                txtSinopsis.Enabled = true;
-                numUnidadesDisponiles.Enabled = true;
-                button1.Enabled = true;
-                chckPrestable.Enabled = true;
-
+                txtTitulo.Visible = true;
+                txtEditorial.Visible = true;
+                txtSinopsis.Visible = true;
+                numUnidadesDisponiles.Visible = true;
+                button1.Visible = true;
+                chckPrestable.Visible = true;
+                groupBox2.Visible = true;
+                groupBox3.Visible = true;
+                lblUnidadesDisponibles.Visible = true;
+                lblCaratula.Visible = true;
+                lblEditorial.Visible = true;
+                lblPrestable.Visible = true;
+                lblSinopsis.Visible = true;
+                lblTitulo.Visible = true;
+                LblImagen.Visible = true;
+                lblIsbn.Location = new Point(29, 16);
+                lblIsbn.Visible = true;
+                txtIsbn.Location = new Point(36, 56);
+                txtIsbn.Visible = true;
+                label1.Visible = true;
 
             }
         }
