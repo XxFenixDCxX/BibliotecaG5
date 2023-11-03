@@ -14,6 +14,7 @@ DELETE FROM Libro;
 DELETE FROM Lector;
 DBCC CHECKIDENT (Categoria, RESEED, 0)
 DBCC CHECKIDENT (Autor, RESEED, 0)
+DBCC CHECKIDENT (Prestamo, RESEED, 0)
 
 INSERT INTO Biblioteca (nombre, lugar, imagen) VALUES ('Biblioteca Central', 'Barcelona', 'https://images.vexels.com/media/users/3/229885/isolated/preview/886153261393ecf90180d83178307a64-trazo-de-puntos-cardinales-de-la-brujula-de-navegacion.png');
 
