@@ -50,6 +50,7 @@ namespace CapaPresentacion
             gestor.EliminarLibrosPrestados(lector.NumeroCarnet, out string err);
 
             cargarLibrosPrestados(lector);
+            cboLectores.Items.Clear();
         }
 
         private void cargarLibrosPrestados(Lector lector)
