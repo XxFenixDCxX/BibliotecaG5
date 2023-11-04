@@ -777,7 +777,8 @@ namespace CapaDatos
         }
 
         //prestar libro comporbando que no este prestado y que quien quiera prestarlo no tenga ningun libro prestado
-        public void PrestarLibro(string isbn, string numeroCarnet, out string error)
+        //y los lectores solo pueden tener 1 libro prestado , nos llegara quien es al que se le presta y que libro se le presta a traves de selecionarlo en la listbox
+        public void PrestarLibro(string isbn, string numero_carnet, out string error)
         {
             error = "";
             using (SqlConnection conexion = new SqlConnection(cadConexion))
@@ -785,58 +786,94 @@ namespace CapaDatos
                 try
                 {
                     conexion.Open();
-
-                    // Si existe el prestamo lo devuelvo
-                    string sqlPrestamo = "SELECT * FROM Prestamo WHERE libro_isbn = @isbn AND lector_numero_carnet = @numeroCarnet";
-                    SqlCommand comandoPrestamo = new SqlCommand(sqlPrestamo, conexion);
-                    comandoPrestamo.Parameters.AddWithValue("@isbn", isbn);
-                    comandoPrestamo.Parameters.AddWithValue("@numeroCarnet", numeroCarnet);
-
-                    SqlDataReader reader = comandoPrestamo.ExecuteReader();
-
-                    if (reader.Read())
+                    //comprobamos que el libro no este prestado
+                    using (SqlCommand commandPrestado = new SqlCommand("SELECT * FROM Prestamo WHERE  libro_isbn = @isbn", conexion))
                     {
-                        error = "El libro ya esta prestado";
-                    }
-
-                    reader.Close();
-
-                    // Si el lector tiene 3 libros prestados no puede prestar mas
-                    string sqlPrestamosLector = "SELECT * FROM Prestamo WHERE lector_numero_carnet = @numeroCarnet";
-                    SqlCommand comandoPrestamosLector = new SqlCommand(sqlPrestamosLector, conexion);
-                    comandoPrestamosLector.Parameters.AddWithValue("@numeroCarnet", numeroCarnet);
-
-                    SqlDataReader readerPrestamosLector = comandoPrestamosLector.ExecuteReader();
-
-                    if (readerPrestamosLector.HasRows)
-                    {
-                        int contador = 0;
-                        while (readerPrestamosLector.Read())
+                        commandPrestado.Parameters.AddWithValue("@isbn", isbn);
+                        if (commandPrestado.ExecuteScalar() != null)
                         {
-                            contador++;
-                        }
-
-                        if (contador >= 3)
-                        {
-                            error = "El lector ya tiene 3 libros prestados";
+                            error = "El libro ya esta prestado";
+                            return;
                         }
                     }
+                    //comprobamos que el lector no tenga ningun libro prestado
+                    using (SqlCommand commandPrestado = new SqlCommand("SELECT * FROM Prestamo WHERE  lector_numero_carnet = @numero_carnet", conexion))
+                    {
+                        commandPrestado.Parameters.AddWithValue("@numero_carnet", numero_carnet);
+                        if (commandPrestado.ExecuteScalar() != null)
+                        {
+                            error = "El Lector ya tiene un libro prestado";
+                            return;
+                        }
+                    }
+                    //comprobamos que el lector exista
+                    using (SqlCommand commandExist = new SqlCommand("SELECT * FROM Lector WHERE numero_carnet = @numero_carnet", conexion))
+                    {
+                        commandExist.Parameters.AddWithValue("@numero_carnet", numero_carnet);
+                        if (commandExist.ExecuteScalar() == null)
+                        {
+                            error = "El reader no existe";
+                            return;
+                        }
+                    }
+                    //comprobamos que el libro exista
+                    using (SqlCommand commandExist = new SqlCommand("SELECT * FROM Libro WHERE isbn = @isbn", conexion))
+                    {
+                        commandExist.Parameters.AddWithValue("@isbn", isbn);
+                        if (commandExist.ExecuteScalar() == null)
+                        {
+                            error = "El libro no existe";
+                            return;
+                        }
+                    }
+                    //comprobamos que el libro sea prestable
+                    using (SqlCommand commandPrestable = new SqlCommand("SELECT * FROM Libro WHERE isbn = @isbn AND es_prestable = 1", conexion))
+                    {
+                        commandPrestable.Parameters.AddWithValue("@isbn", isbn);
+                        if (commandPrestable.ExecuteScalar() == null)
+                        {
+                            error = "El libro no es prestable";
+                            return;
+                        }
+                    }
+                    //comprobamos que el libro tenga unidades disponibles
+                    using (SqlCommand commandUnidades = new SqlCommand("SELECT * FROM Libro WHERE isbn = @isbn AND cantidad_unidades_disponibles > 0", conexion))
+                    {
+                        commandUnidades.Parameters.AddWithValue("@isbn", isbn);
+                        if (commandUnidades.ExecuteScalar() == null)
+                        {
+                            error = "El libro no tiene unidades disponibles";
+                            return;
+                        }
+                    }
+                    //si todo esta bien prestamos el libro
+                    using (SqlCommand command = new SqlCommand("INSERT INTO Prestamo (libro_isbn, lector_numero_carnet, fecha_prestamo, fecha_devolucion) VALUES (@isbn, @numero_carnet, @fecha_prestamo, @fecha_devolucion)", conexion))
+                    {
+                        
+                        
+                        command.Parameters.AddWithValue("@isbn", isbn);
+                        command.Parameters.AddWithValue("@numero_carnet", numero_carnet);
+                        command.Parameters.AddWithValue("@fecha_prestamo", DateTime.Now);
+                        command.Parameters.AddWithValue("@fecha_devolucion", DateTime.Now.AddDays(15));
+                        if (command.ExecuteNonQuery() == 0)
+                        {
+                            error = "No se ha podido prestar el libro";
+                        }
+                    }
+                    //restamos una unidad disponible al libro
+                    using (SqlCommand command = new SqlCommand("UPDATE Libro SET cantidad_unidades_disponibles = cantidad_unidades_disponibles - 1 WHERE isbn = @isbn", conexion))
+                    {
+                        command.Parameters.AddWithValue("@isbn", isbn);
+                        if (command.ExecuteNonQuery() == 0)
+                        {
+                            error = "No se ha podido prestar el libro";
+                        }
+                    }
 
-                    readerPrestamosLector.Close();
-
-                    // Si el libro no esta prestado y el lector no tiene 3 libros prestados, presto el libro
-                    string sqlPrestarLibro = "INSERT INTO Prestamo (libro_isbn, lector_numero_carnet, fecha_prestamo, fecha_devolucion) VALUES (@isbn, @numeroCarnet, @fechaPrestamo, @fechaDevolucion)";
-                    SqlCommand comandoPrestarLibro = new SqlCommand(sqlPrestarLibro, conexion);
-                    comandoPrestarLibro.Parameters.AddWithValue("@isbn", isbn);
-                    comandoPrestarLibro.Parameters.AddWithValue("@numeroCarnet", numeroCarnet);
-                    comandoPrestarLibro.Parameters.AddWithValue("@fechaPrestamo", DateTime.Now);
-                    comandoPrestarLibro.Parameters.AddWithValue("@fechaDevolucion", DateTime.Now.AddDays(15));
-
-
-                    
-                }catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
-                    error = ex.Message;
+                    error = ex.ToString();
                 }
             }
         }
