@@ -1,0 +1,9 @@
+C:\Users\Grado\Documents\Accesos a datos\BibliotecaG5\ProyectoBibliotecaG5\CapaDatos\bin\Debug\CapaDatos.dll
+C:\Users\Grado\Documents\Accesos a datos\BibliotecaG5\ProyectoBibliotecaG5\CapaDatos\bin\Debug\CapaDatos.pdb
+C:\Users\Grado\Documents\Accesos a datos\BibliotecaG5\ProyectoBibliotecaG5\CapaDatos\bin\Debug\CapaEntidades.dll
+C:\Users\Grado\Documents\Accesos a datos\BibliotecaG5\ProyectoBibliotecaG5\CapaDatos\bin\Debug\CapaEntidades.pdb
+C:\Users\Grado\Documents\Accesos a datos\BibliotecaG5\ProyectoBibliotecaG5\CapaDatos\obj\Debug\CapaDatos.csproj.AssemblyReference.cache
+C:\Users\Grado\Documents\Accesos a datos\BibliotecaG5\ProyectoBibliotecaG5\CapaDatos\obj\Debug\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\Grado\Documents\Accesos a datos\BibliotecaG5\ProyectoBibliotecaG5\CapaDatos\obj\Debug\CapaDatos.csproj.CopyComplete
+C:\Users\Grado\Documents\Accesos a datos\BibliotecaG5\ProyectoBibliotecaG5\CapaDatos\obj\Debug\CapaDatos.dll
+C:\Users\Grado\Documents\Accesos a datos\BibliotecaG5\ProyectoBibliotecaG5\CapaDatos\obj\Debug\CapaDatos.pdb

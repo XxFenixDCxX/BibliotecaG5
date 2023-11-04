@@ -86,6 +86,12 @@
     <Compile Include="FrmGestionarLibro.Designer.cs">
       <DependentUpon>FrmGestionarLibro.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPrestar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPrestar.Designer.cs">
+      <DependentUpon>FrmPrestar.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmGestionarLibro.resx">
       <DependentUpon>FrmGestionarLibro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPrestar.resx">
+      <DependentUpon>FrmPrestar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
