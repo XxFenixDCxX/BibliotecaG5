@@ -1,4 +1,4 @@
-# Proyecto de Gestión de Biblioteca
+# Proyecto de Gestión de Biblioteca - Arkaitz Calvo Saldias
 
 Este proyecto tiene como objetivo simular la gestión de una biblioteca, permitiendo el mantenimiento de datos generales de la biblioteca, lector@s, categorías, autor@s y libros, así como la realización de préstamos, devoluciones y la obtención de un listado de moros@s. A continuación, se detallan las principales características y funcionalidades del proyecto.
 
